@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Roh-Assets (Originale, 861 MB) — NICHT deployen. Bleiben lokal für Re-Optimierung
+# via scripts/optimize-*.sh. Die web-fertigen Dateien liegen in public/media/.
+/public/assets/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
