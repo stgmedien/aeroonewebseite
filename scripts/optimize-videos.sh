@@ -7,15 +7,15 @@ SRC="$ROOT/public/assets"
 OUT="$ROOT/public/media/video"
 mkdir -p "$OUT"
 
-HERO="$SRC/Hauptwerbefilm Aero One (Hero).mp4"
+HERO="$SRC/Aero One Vid Gen E Webseite.mp4"
 REF="$SRC/Video Referenz ConceptGT.mp4"
 
-echo "→ Hero-Video (1600px, CRF30, MIT Audio — Loop läuft stumm, Klick spielt mit Ton)"
+echo "→ Hero-Video (1280px, CRF28, MIT Audio — Loop läuft stumm, Klick spielt mit Ton)"
 ffmpeg -y -loglevel error -i "$HERO" \
-  -vf "scale='min(1600,iw)':-2" -c:v libx264 -preset medium -crf 30 \
+  -vf "scale='min(1280,iw)':-2" -c:v libx264 -preset medium -crf 28 \
   -c:a aac -b:a 128k \
   -pix_fmt yuv420p -movflags +faststart "$OUT/hero.mp4"
-ffmpeg -y -loglevel error -ss 3 -i "$HERO" -frames:v 1 -vf "scale=1600:-2" -q:v 3 "$OUT/hero-poster.jpg"
+ffmpeg -y -loglevel error -ss 2 -i "$HERO" -frames:v 1 -vf "scale=1280:-2" -q:v 3 "$OUT/hero-poster.jpg"
 echo "  ✓ hero.mp4 + hero-poster.jpg"
 
 echo "→ Referenzvideo ConceptGT (1920px, CRF25, mit Audio, Klick-Wiedergabe)"
