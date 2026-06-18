@@ -38,7 +38,6 @@ export const galleryPhotos: Img[] = [
 export const panoramas = [
   { src: "/media/pano/pano-1.jpg", label: "Standpunkt 1" },
   { src: "/media/pano/pano-2.jpg", label: "Standpunkt 2" },
-  { src: "/media/pano/pano-3.jpg", label: "Standpunkt 3" },
 ];
 
 export type TeamMember = { name: string; role: string; src: string; width: number; height: number };
