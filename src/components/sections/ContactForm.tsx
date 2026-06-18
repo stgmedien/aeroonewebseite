@@ -95,6 +95,16 @@ export function ContactForm() {
         {status === "loading" ? <Loader2 size={18} className="animate-spin" /> : <Send size={17} />}
         {contactPage.submit}
       </button>
+
+      {/* DSGVO-Transparenzhinweis (Art. 13) — keine Einwilligungs-Checkbox nötig (Art. 6 lit. b/f) */}
+      <p className="mt-4 text-center text-xs leading-relaxed text-fg-muted/80">
+        Mit dem Absenden stimmst du der Verarbeitung deiner Angaben zur Bearbeitung deiner Anfrage zu.
+        Weitere Informationen in unserer{" "}
+        <a href="/datenschutz" className="underline underline-offset-2 transition-colors hover:text-fg">
+          Datenschutzerklärung
+        </a>
+        .
+      </p>
     </form>
   );
 }
