@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Newspaper, Globe, Radio, Megaphone, Trophy, ArrowUpRight, Mail } from "lucide-react";
 import { InstagramIcon, LinkedInIcon } from "@/components/ui/Icons";
 import { Reveal } from "@/components/ui/Reveal";
@@ -12,11 +13,12 @@ import {
   type PressItem,
   type PressKind,
 } from "@/data/press";
+import { pressReleases, type PressRelease } from "@/data/pressReleases";
 
 export const metadata: Metadata = {
   title: "Presse",
   description:
-    "Aero One in der Presse — Berichterstattung über die mehrfach ausgezeichnete JUNIOR-Schülerfirma aus Gütersloh (IW JUNIOR Landessieger NRW & Bundesfinale 2026).",
+    "Aero One in der Presse — Berichterstattung und offizielle Pressemitteilungen der mehrfach ausgezeichneten JUNIOR-Schülerfirma aus Gütersloh (IW JUNIOR Landessieger NRW & Bundessieger 2026).",
 };
 
 type IconCmp = ComponentType<{ size?: number }>;
@@ -65,8 +67,37 @@ function PressCard({ item }: { item: PressItem }) {
   );
 }
 
+function ReleaseCard({ release }: { release: PressRelease }) {
+  return (
+    <Link
+      href={`/presse/${release.slug}`}
+      className="group flex h-full flex-col rounded-2xl glass p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-card sm:p-7"
+    >
+      <div className="flex items-center gap-2.5">
+        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-sunset text-ink-deep">
+          <Megaphone size={17} />
+        </span>
+        <span className="text-xs font-semibold uppercase tracking-wider text-fg-muted">
+          Pressemitteilung · {release.dateLabel}
+        </span>
+      </div>
+
+      <h3 className="mt-4 font-display text-xl font-extrabold leading-snug tracking-tight text-fg sm:text-2xl">
+        {release.title}
+      </h3>
+      <p className="mt-3 flex-1 text-fg-muted">{release.summary}</p>
+
+      <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ember">
+        Pressemitteilung lesen
+        <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      </span>
+    </Link>
+  );
+}
+
 export default function PressePage() {
   const items = [...pressItems].sort((a, b) => b.date.localeCompare(a.date));
+  const releases = [...pressReleases].sort((a, b) => b.date.localeCompare(a.date));
 
   return (
     <section className="relative isolate overflow-hidden pt-32 pb-24 sm:pt-40">
@@ -104,13 +135,46 @@ export default function PressePage() {
           </div>
         </Reveal>
 
-        {/* Press grid */}
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((item, i) => (
-            <Reveal key={item.outlet + item.date + i} delay={Math.min(i * 0.04, 0.3)} className="h-full">
-              <PressCard item={item} />
-            </Reveal>
-          ))}
+        {/* Aero One in der Presse (Medienspiegel) */}
+        <div className="mt-20">
+          <Reveal>
+            <h2 className="font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
+              Aero One <span className="text-gradient">in der Presse</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mt-3 max-w-2xl text-fg-muted">
+              Eine Auswahl der Berichterstattung über Aero One in Print, Online, Radio und Social Media.
+            </p>
+          </Reveal>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((item, i) => (
+              <Reveal key={item.outlet + item.date + i} delay={Math.min(i * 0.04, 0.3)} className="h-full">
+                <PressCard item={item} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+
+        {/* Offizielle Pressemitteilungen */}
+        <div className="mt-20">
+          <Reveal>
+            <h2 className="font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
+              Offizielle <span className="text-gradient">Pressemitteilungen</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mt-3 max-w-2xl text-fg-muted">
+              Mitteilungen direkt von Aero One – zur freien redaktionellen Verwendung.
+            </p>
+          </Reveal>
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
+            {releases.map((release, i) => (
+              <Reveal key={release.slug} delay={Math.min(i * 0.05, 0.3)} className="h-full">
+                <ReleaseCard release={release} />
+              </Reveal>
+            ))}
+          </div>
         </div>
 
         {/* Pressekontakt */}
