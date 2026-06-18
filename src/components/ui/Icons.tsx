@@ -44,6 +44,17 @@ export function YouTubeIcon({ size = 22, ...props }: SVGProps<SVGSVGElement> & {
   );
 }
 
+export function LinkedInIcon({ size = 22, ...props }: SVGProps<SVGSVGElement> & { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <rect x="3" y="3" width="18" height="18" rx="4" />
+      <path d="M7 10v7" />
+      <circle cx="7" cy="6.7" r="0.9" fill="currentColor" stroke="none" />
+      <path d="M11 17v-4a2.2 2.2 0 0 1 4.4 0v4M11 10.6V17" />
+    </svg>
+  );
+}
+
 export function XIcon({ size = 20, ...props }: SVGProps<SVGSVGElement> & { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" {...props}>

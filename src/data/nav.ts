@@ -12,6 +12,7 @@ export const navLinks = [
   { label: "Leistungen", href: "/#leistungen" },
   { label: "Galerie", href: "/#galerie" },
   { label: "Preise", href: "/#preise" },
+  { label: "Presse", href: "/presse" },
   { label: "Kontakt", href: "/kontakt" },
 ] as const;
 
@@ -19,6 +20,7 @@ export const footerPages = [
   { label: "Home", href: "/" },
   { label: "Leistungen", href: "/#leistungen" },
   { label: "Preise", href: "/#preise" },
+  { label: "Presse", href: "/presse" },
   { label: "Kontakt", href: "/kontakt" },
 ] as const;
 
