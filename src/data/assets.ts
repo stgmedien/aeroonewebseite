@@ -21,23 +21,17 @@ export const video = {
 };
 
 export const photos = {
-  drohnePortrait: { src: "/media/photos/drohne-portrait.jpg", width: 1350, height: 2400, alt: "Senkrechte Drohnenaufnahme einer Immobilie aus der Luft" },
-  drohneWide: { src: "/media/photos/drohne-wide.jpg", width: 2600, height: 1462, alt: "Weitwinkel-Luftaufnahme per Drohne" },
-  drohneAerial: { src: "/media/photos/drohne-aerial.jpg", width: 2400, height: 1349, alt: "Drohnen-Luftbild eines Gebäudes von oben" },
   immobilieHv1: { src: "/media/photos/immobilie-hv-1.jpg", width: 2400, height: 1800, alt: "Moderne Immobilie aus der Bodenperspektive" },
   immobilieHv2: { src: "/media/photos/immobilie-hv-2.jpg", width: 2400, height: 1800, alt: "Senkrechte Drohnenaufnahme derselben Immobilie aus der Luft" },
-  immobilieNk1: { src: "/media/photos/immobilie-nk-1.jpg", width: 2400, height: 1797, alt: "Immobilie Neunkirchener Straße, Luftaufnahme" },
-  immobilieNk2: { src: "/media/photos/immobilie-nk-2.jpg", width: 2400, height: 1797, alt: "Immobilie Neunkirchener Straße, Drohnenperspektive" },
+  immobilieNk1: { src: "/media/photos/immobilie-nk-1.jpg", width: 2400, height: 1797, alt: "Immobilie aus der Luft" },
+  immobilieNk2: { src: "/media/photos/immobilie-nk-2.jpg", width: 2400, height: 1797, alt: "Immobilie aus der Bodenperspektive" },
 } satisfies Record<string, Img>;
 
-/** Galerie-Reihenfolge (Bento). Eines der Items ist das Referenzvideo. */
+/** Galerie-Reihenfolge (Bento) – nur freigegebene Immobilien-Aufnahmen. */
 export const galleryPhotos: Img[] = [
-  photos.drohneWide,
-  photos.immobilieHv2,
-  photos.drohnePortrait,
-  photos.immobilieNk2,
-  photos.drohneAerial,
   photos.immobilieNk1,
+  photos.immobilieHv2,
+  photos.immobilieNk2,
 ];
 
 /** 360°-Panoramen (equirektangular, 4096×2048). Beispielprojekt Kaup Immobilien. */

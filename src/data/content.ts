@@ -27,11 +27,9 @@ export const showcase = {
 
 export const stat = {
   eyebrow: "Auf Ihre Immobilie zugeschnitten",
-  titleBefore: "Immobilien ",
-  statValue: 92,
-  statSuffix: "%",
-  titleAfter: " schneller verkaufen",
-  text: "Im Durchschnitt verkaufen sich Immobilien mit professionellen Drohnen-Luftbildaufnahmen von Aero One 92 % besser.",
+  title: "Immobilien überzeugend",
+  titleHighlight: "in Szene gesetzt",
+  text: "Mit professionellen Drohnen-Luftbildaufnahmen präsentieren Sie Lage, Grundstück und Architektur Ihrer Immobilie wirkungsvoll – und schaffen sofort Aufmerksamkeit bei Interessenten.",
   kicker: "Bereit durchzustarten?",
   cta: { label: "Jetzt Buchen!", href: "BOOKING" as const },
   badges: ["Rechtssicher", "Aufnahmen", "Flexibilität", "Lieferung in 48h"],
