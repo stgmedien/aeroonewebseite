@@ -14,6 +14,7 @@ export const navLinks = [
   { label: "Preise", href: "/#preise" },
   { label: "Presse", href: "/presse" },
   { label: "Kontakt", href: "/kontakt" },
+  { label: "EN", href: "/en" },
 ] as const;
 
 export const footerPages = [
@@ -22,6 +23,7 @@ export const footerPages = [
   { label: "Preise", href: "/#preise" },
   { label: "Presse", href: "/presse" },
   { label: "Kontakt", href: "/kontakt" },
+  { label: "English", href: "/en" },
 ] as const;
 
 export const footerLegal = [
@@ -31,7 +33,7 @@ export const footerLegal = [
 
 export const socials = [
   { label: "Instagram", href: "https://www.instagram.com/aeroonedrone/", icon: "instagram" },
-  { label: "YouTube", href: "https://www.youtube.com/@Aeroonedrohne", icon: "youtube" },
+  { label: "YouTube", href: "https://www.youtube.com/@aeroonedrone", icon: "youtube" },
   { label: "X", href: "https://x.com/Aeroonedrone", icon: "x" },
 ] as const;
 

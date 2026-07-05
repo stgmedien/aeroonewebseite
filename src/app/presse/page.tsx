@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   title: "Presse",
   description:
     "Aero One in der Presse — Berichterstattung und offizielle Pressemitteilungen der mehrfach ausgezeichneten JUNIOR-Schülerfirma aus Gütersloh (IW JUNIOR Landessieger NRW & Bundessieger 2026).",
+  openGraph: {
+    title: "Aero One in der Presse — Beste Schülerfirma Deutschlands 2026",
+    description:
+      "Bundessieger des IW-JUNIOR-Wettbewerbs 2026, Deutschlands Vertreter beim Gen-E-Europa-Finale in Riga: der Medienspiegel und alle offiziellen Pressemitteilungen.",
+  },
 };
 
 type IconCmp = ComponentType<{ size?: number }>;
@@ -139,7 +144,7 @@ export default function PressePage() {
         <div className="mt-20">
           <Reveal>
             <h2 className="font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
-              Aero One <span className="text-gradient">in der Presse</span>
+              Der <span className="text-gradient">Medienspiegel</span>
             </h2>
           </Reveal>
           <Reveal delay={0.1}>

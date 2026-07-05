@@ -3,8 +3,26 @@
  * Inhalte aus der bestehenden aeroone.eu übernommen — offensichtliche Tippfehler korrigiert.
  */
 
+/** Site-weite Announcement-Bar (über der Navbar) — DE/EN je nach Route. */
+export const announcement = {
+  de: {
+    text: "Beste Schülerfirma Deutschlands 2026 · Wir vertreten Deutschland beim Gen-E-Finale in Riga (7.–10. Juli)",
+    short: "Beste Schülerfirma Deutschlands 2026",
+    href: "/presse",
+    switchLabel: "EN",
+    switchHref: "/en",
+  },
+  en: {
+    text: "Germany's Best Student Company 2026 · Representing Germany at the Gen-E finals in Riga (July 7–10)",
+    short: "Germany's Best Student Company 2026",
+    href: "/presse",
+    switchLabel: "DE",
+    switchHref: "/",
+  },
+};
+
 export const hero = {
-  badge: "Drohnenvideos in unter 48h",
+  badge: "IW JUNIOR Bundessieger 2026 · Beste Schülerfirma Deutschlands",
   titleLines: ["Drohnenvideos", "in unter 48h"],
   highlight: "48h",
   subtitle:
@@ -64,13 +82,14 @@ export const freyaCta = {
   cta: { label: "Jetzt Buchen!", href: "BOOKING" as const },
   person: {
     name: "Freya Knight",
-    role: "Head of Sales",
+    role: "Vertriebsleiterin",
     email: "aeroonemail@gmail.com",
   },
 };
 
 export const footer = {
   tagline: "Professionelle Drohnenvideos für Events · Immobilien · Projekte.",
+  award: "Beste Schülerfirma Deutschlands 2026 (IW JUNIOR)",
 };
 
 export const contactPage = {

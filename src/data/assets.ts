@@ -48,7 +48,7 @@ export const team: TeamMember[] = [
   { name: "Freya Knight", role: "Vertriebsleitung", src: "/media/team/freya.jpg", width: 416, height: 900 },
   { name: "Amy Thomalla", role: "Vertriebskraft", src: "/media/team/amy.jpg", width: 600, height: 900 },
   { name: "Linus Held", role: "Drohnenpilot", src: "/media/team/linus.jpg", width: 600, height: 900 },
-  { name: "Friedrich Grüninger", role: "Hilfskraft Marketing", src: "/media/team/friederich.jpg", width: 600, height: 900 },
+  { name: "Friedrich Grüninger", role: "Marketing & Drohnenpilot in Ausbildung", src: "/media/team/friederich.jpg", width: 600, height: 900 },
 ];
 
 /** Sektions-Texte für die neuen Bereiche. */

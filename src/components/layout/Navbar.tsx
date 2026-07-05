@@ -20,7 +20,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 sm:px-4 sm:pt-4">
+    <header className="fixed inset-x-0 top-9 z-50 flex justify-center px-3 pt-3 sm:px-4 sm:pt-4">
       <nav
         className={`flex w-full max-w-6xl items-center justify-between rounded-full px-3 py-2 transition-all duration-300 sm:px-4 ${
           scrolled ? "glass-strong shadow-card" : "bg-transparent"

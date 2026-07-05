@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Trophy } from "lucide-react";
 import { footerPages, footerLegal, socials } from "@/data/nav";
 import { footer } from "@/data/content";
 import { socialIconMap } from "@/components/ui/Icons";
@@ -14,6 +15,13 @@ export function Footer() {
           <div className="max-w-xs">
             <Logo />
             <p className="mt-4 text-sm leading-relaxed text-fg-muted">{footer.tagline}</p>
+            <Link
+              href="/presse"
+              className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-fg transition-colors hover:text-ember"
+            >
+              <Trophy size={14} className="shrink-0 text-ember" />
+              {footer.award}
+            </Link>
             <div className="mt-5 flex gap-2.5">
               {socials.map((s) => {
                 const Icon = socialIconMap[s.icon];

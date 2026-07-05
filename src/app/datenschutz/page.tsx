@@ -9,13 +9,8 @@ export const metadata: Metadata = {
 export default function DatenschutzPage() {
   return (
     <LegalShell title="Datenschutzerklärung" updated="Stand: März 2026">
-      <p className="rounded-2xl border border-ember/30 bg-ember/10 p-4 text-sm text-fg/90">
-        <strong>Hinweis:</strong> Diese Datenschutzerklärung wurde an die neue
-        technische Umsetzung (Hosting, Schriftarten, Kontaktformular) angepasst.
-        Bitte vor dem Livegang rechtlich prüfen lassen und um tatsächlich
-        eingesetzte Dienste (z.&nbsp;B. Analyse-Tools) ergänzen.
-      </p>
-
+      {/* Interner Vermerk: DSE wurde an den neuen Stack angepasst (Hosting, Fonts,
+          Kontaktformular) — finale rechtliche Prüfung durch Fachanwalt steht aus. */}
       <h2>1. Verantwortlicher</h2>
       <p>
         Verantwortlich für die Datenverarbeitung auf dieser Website ist:
