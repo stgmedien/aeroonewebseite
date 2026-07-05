@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Trophy } from "lucide-react";
-import { footerPages, footerLegal, socials } from "@/data/nav";
-import { footer } from "@/data/content";
+import { socials } from "@/data/nav";
 import { socialIconMap } from "@/components/ui/Icons";
+import { localePath, type Dict, type Locale } from "@/i18n";
 import { Logo } from "./Logo";
 
-export function Footer() {
+export function Footer({ t, locale }: { t: Dict["footer"]; locale: Locale }) {
   const year = new Date().getFullYear();
   return (
     <footer className="relative border-t border-white/8 bg-ink-deep">
@@ -13,14 +13,14 @@ export function Footer() {
       <div className="container-x py-14">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div className="max-w-xs">
-            <Logo />
-            <p className="mt-4 text-sm leading-relaxed text-fg-muted">{footer.tagline}</p>
+            <Logo href={localePath(locale, "/")} />
+            <p className="mt-4 text-sm leading-relaxed text-fg-muted">{t.tagline}</p>
             <Link
-              href="/presse"
+              href={localePath(locale, "/presse")}
               className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-fg transition-colors hover:text-ember"
             >
               <Trophy size={14} className="shrink-0 text-ember" />
-              {footer.award}
+              {t.award}
             </Link>
             <div className="mt-5 flex gap-2.5">
               {socials.map((s) => {
@@ -41,14 +41,14 @@ export function Footer() {
             </div>
           </div>
 
-          <FooterCol title="Seiten" links={footerPages} />
-          <FooterCol title="Informationen" links={footerLegal} />
+          <FooterCol title={t.colPages} links={t.pages} locale={locale} />
+          <FooterCol title={t.colInfo} links={t.legal} locale={locale} />
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/8 pt-6 text-sm text-fg-muted sm:flex-row">
-          <p>© {year} Aero One · Gütersloh</p>
+          <p>© {year} {t.copyright}</p>
           <p className="flex items-center gap-1.5">
-            Mit <span className="text-ember">▲</span> Vision gebaut.
+            {t.vision.split("▲")[0]}<span className="text-ember">▲</span>{t.vision.split("▲")[1]}
           </p>
         </div>
       </div>
@@ -59,9 +59,11 @@ export function Footer() {
 function FooterCol({
   title,
   links,
+  locale,
 }: {
   title: string;
   links: readonly { label: string; href: string }[];
+  locale: Locale;
 }) {
   return (
     <div>
@@ -69,7 +71,7 @@ function FooterCol({
       <ul className="mt-4 space-y-2.5">
         {links.map((l) => (
           <li key={l.href}>
-            <Link href={l.href} className="text-sm text-fg-muted transition-colors hover:text-fg">
+            <Link href={localePath(locale, l.href)} className="text-sm text-fg-muted transition-colors hover:text-fg">
               {l.label}
             </Link>
           </li>

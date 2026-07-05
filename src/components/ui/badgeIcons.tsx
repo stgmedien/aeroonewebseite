@@ -9,18 +9,19 @@ import {
   Sparkles,
 } from "lucide-react";
 import type { ReactNode } from "react";
+import type { BadgeIconKey } from "@/i18n";
 
-const map: Record<string, ReactNode> = {
-  Rechtssicher: <ShieldCheck size={16} />,
-  Aufnahmen: <Camera size={16} />,
-  Flexibilität: <Repeat2 size={16} />,
-  "Lieferung in 48h": <Clock size={16} />,
-  "48h Lieferzeit": <Clock size={16} />,
-  "Individuelle Preise": <Tag size={16} />,
-  "Mehr Sichtbarkeit": <Eye size={16} />,
-  "All In One": <Layers size={16} />,
+/** Sprachneutrale Icon-Keys (Labels kommen aus dem Dict). */
+const map: Record<BadgeIconKey, ReactNode> = {
+  shield: <ShieldCheck size={16} />,
+  camera: <Camera size={16} />,
+  flex: <Repeat2 size={16} />,
+  clock: <Clock size={16} />,
+  tag: <Tag size={16} />,
+  eye: <Eye size={16} />,
+  layers: <Layers size={16} />,
 };
 
-export function badgeIcon(label: string): ReactNode {
-  return map[label] ?? <Sparkles size={16} />;
+export function badgeIcon(key: BadgeIconKey): ReactNode {
+  return map[key] ?? <Sparkles size={16} />;
 }

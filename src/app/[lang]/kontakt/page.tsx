@@ -3,14 +3,27 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { CtaFreya } from "@/components/layout/CtaFreya";
-import { contactPage } from "@/data/content";
+import { getDict, isLocale } from "@/i18n";
 
-export const metadata: Metadata = {
-  title: "Kontakt",
-  description: "Stelle deine Anfrage – professionelle Luftbildaufnahmen sind nur einen Klick entfernt.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const d = getDict(isLocale(lang) ? lang : "de");
+  return {
+    title: d.meta.kontakt.title,
+    description: d.meta.kontakt.description,
+    alternates: { languages: { de: "/kontakt", en: "/en/kontakt" } },
+  };
+}
 
-export default function KontaktPage() {
+export default async function KontaktPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const locale = isLocale(lang) ? lang : "de";
+  const d = getDict(locale);
+
   return (
     <>
       <section className="relative isolate overflow-hidden pt-32 sm:pt-40">
@@ -18,27 +31,27 @@ export default function KontaktPage() {
         <div className="container-x">
           <div className="mx-auto max-w-xl text-center">
             <Reveal>
-              <SectionLabel>{contactPage.eyebrow}</SectionLabel>
+              <SectionLabel>{d.contact.eyebrow}</SectionLabel>
             </Reveal>
             <Reveal delay={0.1}>
               <h1 className="mt-5 font-display text-5xl font-extrabold tracking-tight sm:text-6xl">
-                {contactPage.title}
+                {d.contact.title}
               </h1>
             </Reveal>
             <Reveal delay={0.15}>
-              <p className="mt-4 text-lg text-fg-muted">{contactPage.text}</p>
+              <p className="mt-4 text-lg text-fg-muted">{d.contact.text}</p>
             </Reveal>
           </div>
 
           <Reveal delay={0.1}>
             <div className="mx-auto mt-12 max-w-2xl">
-              <ContactForm />
+              <ContactForm t={d.contact} locale={locale} />
             </div>
           </Reveal>
         </div>
       </section>
 
-      <CtaFreya />
+      <CtaFreya t={d.freyaCta} />
     </>
   );
 }

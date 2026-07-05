@@ -2,8 +2,8 @@ import { Star, Quote } from "lucide-react";
 import { Marquee } from "@/components/ui/Marquee";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { testimonials, type Testimonial } from "@/data/testimonials";
-import { testimonialsSection } from "@/data/content";
+import type { Testimonial } from "@/data/testimonials";
+import type { Dict } from "@/i18n";
 
 function Stars({ className = "" }: { className?: string }) {
   return (
@@ -41,18 +41,18 @@ function Card({ t }: { t: Testimonial }) {
   );
 }
 
-export function Testimonials() {
-  const featured = testimonials.find((t) => t.featured) ?? testimonials[0];
+export function Testimonials({ t, de = true }: { t: Dict["testimonials"]; de?: boolean }) {
+  const featured = t.items.find((x) => x.featured) ?? t.items[0];
   return (
     <section className="section overflow-hidden">
       <div className="container-x text-center">
         <Reveal>
-          <SectionLabel>{testimonialsSection.eyebrow}</SectionLabel>
+          <SectionLabel>{t.eyebrow}</SectionLabel>
         </Reveal>
         <Reveal delay={0.1}>
           <Quote className="mx-auto mt-6 text-ember" size={40} />
           <blockquote className="mx-auto mt-4 max-w-3xl font-display text-2xl font-bold leading-snug tracking-tight sm:text-4xl">
-            „{featured.quote}“
+            {de ? <>„{featured.quote}“</> : <>“{featured.quote}”</>}
           </blockquote>
         </Reveal>
         <Reveal delay={0.15}>
@@ -69,8 +69,8 @@ export function Testimonials() {
 
       <div className="mt-16">
         <Marquee className="mask-fade-x" gapClass="gap-6">
-          {testimonials.map((t) => (
-            <Card key={t.name} t={t} />
+          {t.items.map((item) => (
+            <Card key={item.name} t={item} />
           ))}
         </Marquee>
       </div>

@@ -1,15 +1,9 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Trophy } from "lucide-react";
-import { announcement } from "@/data/content";
+import type { Dict } from "@/i18n";
 
-/** Schmale Award-Leiste über der Navbar — sichtbar auf allen Seiten, DE/EN je nach Route. */
-export function AnnouncementBar() {
-  const pathname = usePathname();
-  const t = pathname?.startsWith("/en") ? announcement.en : announcement.de;
-
+/** Schmale Award-Leiste über der Navbar — sichtbar auf allen Seiten. */
+export function AnnouncementBar({ t }: { t: Dict["announcement"] }) {
   return (
     <div className="fixed inset-x-0 top-0 z-[60] flex h-9 items-center justify-center gap-2.5 border-b border-ember/25 bg-ink-deep/90 px-3 text-xs font-medium text-fg/90 backdrop-blur-md sm:text-[0.8rem]">
       <Trophy size={13} className="shrink-0 text-ember" aria-hidden />

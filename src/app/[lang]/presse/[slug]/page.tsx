@@ -4,19 +4,28 @@ import Link from "next/link";
 import { ArrowLeft, Mail, Quote } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { pressReleases, getRelease, type ReleaseBlock } from "@/data/pressReleases";
+import { pressReleases, type ReleaseBlock } from "@/data/pressReleases";
+import { getDict, isLocale, localePath } from "@/i18n";
 
 export function generateStaticParams() {
   return pressReleases.map((r) => ({ slug: r.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
-  const release = getRelease(slug);
-  if (!release) return { title: "Pressemitteilung" };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string; slug: string }>;
+}): Promise<Metadata> {
+  const { lang, slug } = await params;
+  const d = getDict(isLocale(lang) ? lang : "de");
+  const release = d.presse.releases.find((r) => r.slug === slug);
+  if (!release) return { title: d.presse.pmEyebrow };
   return {
-    title: `${release.title} – Pressemitteilung`,
+    title: `${release.title} – ${d.presse.pmEyebrow}`,
     description: release.summary,
+    alternates: {
+      languages: { de: `/presse/${slug}`, en: `/en/presse/${slug}` },
+    },
   };
 }
 
@@ -30,7 +39,7 @@ function Rich({ text }: { text: string }) {
   );
 }
 
-function Block({ block }: { block: ReleaseBlock }) {
+function Block({ block, de }: { block: ReleaseBlock; de: boolean }) {
   switch (block.t) {
     case "h2":
       return (
@@ -60,7 +69,7 @@ function Block({ block }: { block: ReleaseBlock }) {
         <figure className="mt-8 rounded-2xl glass-strong p-6 sm:p-7">
           <Quote size={22} className="text-ember" />
           <blockquote className="mt-3 font-display text-xl font-semibold leading-snug text-fg sm:text-2xl">
-            „{block.text}“
+            {de ? <>„{block.text}“</> : <>“{block.text}”</>}
           </blockquote>
           <figcaption className="mt-4 text-sm font-medium text-fg-muted">— {block.cite}</figcaption>
         </figure>
@@ -68,9 +77,16 @@ function Block({ block }: { block: ReleaseBlock }) {
   }
 }
 
-export default async function PressReleasePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const release = getRelease(slug);
+export default async function PressReleasePage({
+  params,
+}: {
+  params: Promise<{ lang: string; slug: string }>;
+}) {
+  const { lang, slug } = await params;
+  const locale = isLocale(lang) ? lang : "de";
+  const d = getDict(locale);
+  const t = d.presse;
+  const release = t.releases.find((r) => r.slug === slug);
   if (!release) notFound();
 
   return (
@@ -80,17 +96,17 @@ export default async function PressReleasePage({ params }: { params: Promise<{ s
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <Link
-              href="/presse"
+              href={localePath(locale, "/presse")}
               className="inline-flex items-center gap-1.5 text-sm font-medium text-fg-muted transition-colors hover:text-fg"
             >
-              <ArrowLeft size={16} /> Zurück zur Presse
+              <ArrowLeft size={16} /> {t.back}
             </Link>
           </Reveal>
 
           <header className="mt-6">
             <Reveal>
               <div className="flex flex-wrap items-center gap-3">
-                <SectionLabel>Pressemitteilung</SectionLabel>
+                <SectionLabel>{t.pmEyebrow}</SectionLabel>
                 <span className="text-sm font-medium text-fg-muted">
                   {release.place}, {release.dateLabel}
                 </span>
@@ -105,13 +121,16 @@ export default async function PressReleasePage({ params }: { params: Promise<{ s
               <p className="mt-6 border-l-2 border-ember/60 pl-5 text-lg font-medium leading-relaxed text-fg">
                 {release.standfirst}
               </p>
+              {t.translatedNote && (
+                <p className="mt-3 text-sm italic text-fg-muted">{t.translatedNote}</p>
+              )}
             </Reveal>
           </header>
 
           <Reveal delay={0.1}>
             <div className="mt-4">
               {release.blocks.map((block, i) => (
-                <Block key={i} block={block} />
+                <Block key={i} block={block} de={locale === "de"} />
               ))}
             </div>
           </Reveal>
@@ -119,7 +138,7 @@ export default async function PressReleasePage({ params }: { params: Promise<{ s
           {/* Pressekontakt */}
           <Reveal delay={0.1}>
             <div className="mt-14 rounded-[1.5rem] glass-strong p-7">
-              <h2 className="font-display text-xl font-extrabold tracking-tight">Pressekontakt</h2>
+              <h2 className="font-display text-xl font-extrabold tracking-tight">{t.contact.title}</h2>
               <p className="mt-3 text-fg-muted">
                 <span className="font-semibold text-fg">{release.contact.org}</span>
                 <br />
@@ -134,9 +153,7 @@ export default async function PressReleasePage({ params }: { params: Promise<{ s
                 <Mail size={18} />
                 {release.contact.email}
               </a>
-              <p className="mt-5 text-sm text-fg-muted">
-                Bild- und Videomaterial sowie O-Töne stellen wir auf Anfrage gerne zur Verfügung.
-              </p>
+              <p className="mt-5 text-sm text-fg-muted">{t.materialNote}</p>
             </div>
           </Reveal>
         </div>

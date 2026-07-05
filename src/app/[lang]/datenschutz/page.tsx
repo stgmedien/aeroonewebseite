@@ -1,16 +1,25 @@
 import type { Metadata } from "next";
 import { LegalShell } from "@/components/layout/LegalShell";
+import { getDict, isLocale } from "@/i18n";
 
 export const metadata: Metadata = {
   title: "Datenschutz",
   description: "Datenschutzerklärung der Aero One gemäß DSGVO.",
+  alternates: { languages: { de: "/datenschutz", en: "/en/datenschutz" } },
 };
 
-export default function DatenschutzPage() {
+export default async function DatenschutzPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const d = getDict(isLocale(lang) ? lang : "de");
   return (
     <LegalShell title="Datenschutzerklärung" updated="Stand: März 2026">
       {/* Interner Vermerk: DSE wurde an den neuen Stack angepasst (Hosting, Fonts,
           Kontaktformular) — finale rechtliche Prüfung durch Fachanwalt steht aus. */}
+      {d.legal.germanBindingNote && (
+        <p className="rounded-2xl border border-white/15 bg-white/5 p-4 text-sm text-fg-muted">
+          {d.legal.germanBindingNote}
+        </p>
+      )}
       <h2>1. Verantwortlicher</h2>
       <p>
         Verantwortlich für die Datenverarbeitung auf dieser Website ist:

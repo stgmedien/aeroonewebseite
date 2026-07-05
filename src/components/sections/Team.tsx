@@ -1,27 +1,26 @@
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { team, sectionCopy } from "@/data/assets";
+import { team } from "@/data/assets";
+import type { Dict } from "@/i18n";
 
-export function Team() {
-  const { eyebrow, title, text } = sectionCopy.team;
-
+export function Team({ t }: { t: Dict["team"] }) {
   return (
     <section className="section">
       <div className="container-x">
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>
-            <SectionLabel>{eyebrow}</SectionLabel>
+            <SectionLabel>{t.eyebrow}</SectionLabel>
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
-              Die Köpfe hinter{" "}
-              <span className="text-gradient">Aero One</span>
+              {t.titlePre}{" "}
+              <span className="text-gradient">{t.titleHighlight}</span>
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
-            <p className="mx-auto mt-5 max-w-xl text-lg text-fg-muted">{text}</p>
+            <p className="mx-auto mt-5 max-w-xl text-lg text-fg-muted">{t.text}</p>
           </Reveal>
         </div>
 
@@ -43,7 +42,7 @@ export function Team() {
                 </div>
                 <figcaption className="mt-4">
                   <p className="font-display font-semibold text-fg">{member.name}</p>
-                  <p className="mt-0.5 text-sm text-ember">{member.role}</p>
+                  <p className="mt-0.5 text-sm text-ember">{t.roles[member.name] ?? member.role}</p>
                 </figcaption>
               </figure>
             </Reveal>

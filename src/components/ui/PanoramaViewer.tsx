@@ -4,7 +4,9 @@ import * as THREE from "three";
 import { Canvas, useFrame, useThree, useLoader } from "@react-three/fiber";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { panoramas } from "@/data/assets";
+
+export type PanoScene = { src: string; label: string };
+export type PanoLabels = { hint: string; loading: string; sceneAria: string };
 
 /* ------------------------------------------------------------------ */
 /*  3D-Bausteine                                                       */
@@ -87,7 +89,7 @@ const DEFAULT_CTL: Ctl = { lon: 180, lat: 0, fov: 75 };
 /*  Viewer                                                             */
 /* ------------------------------------------------------------------ */
 
-export function PanoramaViewer() {
+export function PanoramaViewer({ scenes, labels }: { scenes: PanoScene[]; labels: PanoLabels }) {
   const ctl = useRef<Ctl>({ ...DEFAULT_CTL });
 
   // Drag-Status (Refs, damit Re-Renders das Ziehen nicht stören)
@@ -103,7 +105,7 @@ export function PanoramaViewer() {
   // SSR-sicher: WebGL/Canvas erst nach Mount im Client rendern.
   useEffect(() => setMounted(true), []);
 
-  const active = panoramas[activeIndex];
+  const active = scenes[activeIndex];
 
   /* --- Pointer-Steuerung (Ziehen zum Umsehen) --------------------- */
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
@@ -200,14 +202,14 @@ export function PanoramaViewer() {
       {(loading || !mounted) && (
         <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-ink-deep/55 backdrop-blur-[3px] transition-opacity">
           <Spinner className="h-9 w-9" />
-          <p className="text-sm font-medium tracking-wide text-fg-muted">Panorama lädt …</p>
+          <p className="text-sm font-medium tracking-wide text-fg-muted">{labels.loading}</p>
         </div>
       )}
 
       {/* Steuerungs-Hinweis (oben links) */}
       <div className="pointer-events-none absolute left-3 top-3 z-10 hidden rounded-full glass px-3.5 py-1.5 text-[11px] font-medium tracking-wide text-fg-muted sm:flex sm:items-center sm:gap-2">
         <DragIcon className="h-3.5 w-3.5 text-ember" />
-        Ziehen zum Umsehen · Scrollen zum Zoomen
+        {labels.hint}
       </div>
 
       {/* aktuelles Label (oben rechts) */}
@@ -219,14 +221,14 @@ export function PanoramaViewer() {
       {/* Szenen-Switcher (unten, mittig) */}
       <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center p-3 sm:p-4">
         <div className="flex items-center gap-2 rounded-2xl glass-strong p-2 shadow-card">
-          {panoramas.map((p, i) => {
+          {scenes.map((p, i) => {
             const isActive = i === activeIndex;
             return (
               <button
                 key={p.src}
                 type="button"
                 onClick={() => selectScene(i)}
-                aria-label={`Zu ${p.label} wechseln`}
+                aria-label={labels.sceneAria.replace("{label}", p.label)}
                 aria-pressed={isActive}
                 className={`group relative h-12 w-16 shrink-0 overflow-hidden rounded-xl transition-all duration-300 sm:h-14 sm:w-20 ${
                   isActive

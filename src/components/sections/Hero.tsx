@@ -4,8 +4,8 @@ import { useRef, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { ChevronDown, Play, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { hero } from "@/data/content";
 import { video } from "@/data/assets";
+import { localePath, type Dict, type Locale } from "@/i18n";
 
 const EASE: [number, number, number, number] = [0.21, 0.5, 0.2, 1];
 const container: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } };
@@ -35,7 +35,7 @@ function Clouds() {
 }
 
 /** Hero-Film: läuft stumm als Loop; Play-Overlay startet ihn mit Ton. */
-function HeroVideo() {
+function HeroVideo({ playAria, playCta }: { playAria: string; playCta: string }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [withSound, setWithSound] = useState(false);
 
@@ -78,7 +78,7 @@ function HeroVideo() {
         <button
           type="button"
           onClick={playWithSound}
-          aria-label="Werbefilm mit Ton abspielen"
+          aria-label={playAria}
           className="group absolute inset-0 flex flex-col items-center justify-center gap-5 bg-gradient-to-t from-ink-deep/55 via-ink-deep/10 to-transparent transition-colors duration-300 hover:from-ink-deep/65"
         >
           {/* Play-Button mit Puls */}
@@ -89,7 +89,7 @@ function HeroVideo() {
           {/* kleiner CTA */}
           <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-sm font-semibold text-fg shadow-card transition-colors duration-300 group-hover:bg-white/10">
             <Volume2 size={16} className="text-ember" />
-            Werbefilm mit Ton ansehen
+            {playCta}
           </span>
         </button>
       )}
@@ -97,7 +97,7 @@ function HeroVideo() {
   );
 }
 
-export function Hero() {
+export function Hero({ t, locale }: { t: Dict["hero"]; locale: Locale }) {
   return (
     <section className="relative isolate overflow-hidden">
       {/* Sonnenuntergang-Himmel */}
@@ -117,37 +117,37 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/80" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
             </span>
-            {hero.badge}
+            {t.badge}
           </motion.span>
 
           <motion.h1
             variants={item}
             className="mt-7 font-display text-5xl font-extrabold leading-[0.98] tracking-tight text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.25)] sm:text-7xl md:text-8xl"
           >
-            Drohnenvideos
+            {t.titleLine1}
             <br />
-            in unter <span className="text-gradient">48h</span>
+            {t.titleLine2Pre} <span className="text-gradient">{t.titleHighlight}</span>
           </motion.h1>
 
           <motion.p variants={item} className="mt-6 max-w-2xl text-balance text-lg text-white/85 sm:text-xl">
-            {hero.subtitle}
+            {t.subtitle}
           </motion.p>
 
           <motion.div variants={item} className="mt-5 flex items-center gap-3 text-sm font-semibold uppercase tracking-wider text-white/90">
-            {hero.tags.map((t, i) => (
-              <span key={t} className="flex items-center gap-3">
+            {t.tags.map((tag, i) => (
+              <span key={tag} className="flex items-center gap-3">
                 {i > 0 && <span className="h-1 w-1 rounded-full bg-white/60" />}
-                {t}
+                {tag}
               </span>
             ))}
           </motion.div>
 
           <motion.div variants={item} className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
-            <Button href={hero.primaryCta.href} size="lg" arrow>
-              {hero.primaryCta.label}
+            <Button href={localePath(locale, t.primaryCta.href)} size="lg" arrow>
+              {t.primaryCta.label}
             </Button>
-            <Button href={hero.secondaryCta.href} size="lg" variant="secondary">
-              {hero.secondaryCta.label}
+            <Button href={localePath(locale, t.secondaryCta.href)} size="lg" variant="secondary">
+              {t.secondaryCta.label}
             </Button>
           </motion.div>
         </motion.div>
@@ -159,7 +159,7 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.6, ease: EASE }}
           className="relative mx-auto mt-14 aspect-[16/9] w-full max-w-5xl overflow-hidden rounded-[2rem] ring-sunset shadow-[0_40px_120px_-30px_rgba(239,121,29,0.5)]"
         >
-          <HeroVideo />
+          <HeroVideo playAria={t.playAria} playCta={t.playCta} />
         </motion.div>
 
         <motion.div
@@ -168,7 +168,7 @@ export function Hero() {
           transition={{ delay: 1.4 }}
           className="mt-10 flex flex-col items-center gap-1 text-white/70"
         >
-          <span className="text-xs uppercase tracking-[0.2em]">Scrollen</span>
+          <span className="text-xs uppercase tracking-[0.2em]">{t.scroll}</span>
           <ChevronDown size={18} className="animate-bounce" />
         </motion.div>
       </div>

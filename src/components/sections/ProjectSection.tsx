@@ -4,41 +4,41 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { BeforeAfterSlider } from "@/components/ui/BeforeAfterSlider";
 import { badgeIcon } from "@/components/ui/badgeIcons";
-import { project } from "@/data/content";
 import { photos } from "@/data/assets";
 import { bookingUrl } from "@/lib/immohero";
+import type { Dict } from "@/i18n";
 import Image from "next/image";
 
-export function ProjectSection() {
+export function ProjectSection({ t }: { t: Dict["project"] }) {
   return (
     <section id="leistungen" className="section scroll-mt-24">
       <div className="container-x grid items-center gap-12 lg:grid-cols-2">
         {/* Inhalt */}
         <div className="order-2 lg:order-1">
           <Reveal>
-            <SectionLabel>{project.eyebrow}</SectionLabel>
+            <SectionLabel>{t.eyebrow}</SectionLabel>
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
-              Professionelle Aufnahmen für <span className="text-gradient">Ihr Projekt</span>
+              {t.titlePre} <span className="text-gradient">{t.titleHighlight}</span>
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
-            <p className="mt-5 max-w-md text-lg text-fg-muted">{project.text}</p>
+            <p className="mt-5 max-w-md text-lg text-fg-muted">{t.text}</p>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mt-6 text-sm font-semibold uppercase tracking-wider text-ember">{project.kicker}</p>
+            <p className="mt-6 text-sm font-semibold uppercase tracking-wider text-ember">{t.kicker}</p>
             <div className="mt-3">
               <Button href={bookingUrl()} size="lg" arrow>
-                {project.cta.label}
+                {t.ctaLabel}
               </Button>
             </div>
           </Reveal>
 
           <div className="mt-9 grid grid-cols-2 gap-3">
-            {project.badges.map((b, i) => (
-              <Reveal key={b} delay={0.25 + i * 0.06}>
-                <Badge icon={badgeIcon(b)}>{b}</Badge>
+            {t.badges.map((b, i) => (
+              <Reveal key={b.label} delay={0.25 + i * 0.06}>
+                <Badge icon={badgeIcon(b.icon)}>{b.label}</Badge>
               </Reveal>
             ))}
           </div>
@@ -48,8 +48,8 @@ export function ProjectSection() {
         <Reveal className="order-1 lg:order-2">
           <BeforeAfterSlider
             className="aspect-[4/3] w-full shadow-card"
-            beforeLabel="Bodenperspektive"
-            afterLabel="Aus der Luft"
+            beforeLabel={t.beforeLabel}
+            afterLabel={t.afterLabel}
             before={
               <Image
                 src={photos.immobilieHv1.src}
@@ -69,7 +69,7 @@ export function ProjectSection() {
               />
             }
           />
-          <p className="mt-3 text-center text-sm text-fg-muted">Ziehe den Regler – vom Standardfoto zur Luftaufnahme.</p>
+          <p className="mt-3 text-center text-sm text-fg-muted">{t.sliderHint}</p>
         </Reveal>
       </div>
     </section>

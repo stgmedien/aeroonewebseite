@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Loader2, CheckCircle2, Send } from "lucide-react";
 import { motion } from "framer-motion";
-import { contactPage } from "@/data/content";
+import { localePath, type Dict, type Locale } from "@/i18n";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -11,8 +11,8 @@ const inputClass =
   "w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-fg placeholder:text-fg-muted/55 transition-colors duration-200 focus:border-ember focus:outline-none focus:ring-2 focus:ring-ember/35";
 const labelClass = "mb-1.5 block text-sm font-medium text-fg/90";
 
-export function ContactForm() {
-  const f = contactPage.fields;
+export function ContactForm({ t, locale }: { t: Dict["contact"]; locale: Locale }) {
+  const f = t.fields;
   const [status, setStatus] = useState<Status>("idle");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -44,12 +44,12 @@ export function ContactForm() {
         <span className="grid h-14 w-14 place-items-center rounded-full bg-sunset text-ink-deep">
           <CheckCircle2 size={28} />
         </span>
-        <p className="max-w-sm text-lg text-fg">{contactPage.success}</p>
+        <p className="max-w-sm text-lg text-fg">{t.success}</p>
         <button
           onClick={() => setStatus("idle")}
           className="text-sm font-medium text-ember transition-colors hover:text-gold"
         >
-          Weitere Anfrage senden
+          {t.successMore}
         </button>
       </motion.div>
     );
@@ -84,7 +84,7 @@ export function ContactForm() {
       </div>
 
       {status === "error" && (
-        <p className="mt-4 text-sm text-flame">Etwas ist schiefgelaufen. Bitte versuche es erneut oder schreib uns direkt.</p>
+        <p className="mt-4 text-sm text-flame">{t.error}</p>
       )}
 
       <button
@@ -93,17 +93,16 @@ export function ContactForm() {
         className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-sunset px-7 py-3.5 font-semibold text-ink-deep shadow-[0_14px_40px_-12px_rgba(239,121,29,0.7)] transition-all duration-300 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70"
       >
         {status === "loading" ? <Loader2 size={18} className="animate-spin" /> : <Send size={17} />}
-        {contactPage.submit}
+        {t.submit}
       </button>
 
       {/* DSGVO-Transparenzhinweis (Art. 13) — keine Einwilligungs-Checkbox nötig (Art. 6 lit. b/f) */}
       <p className="mt-4 text-center text-xs leading-relaxed text-fg-muted/80">
-        Mit dem Absenden stimmst du der Verarbeitung deiner Angaben zur Bearbeitung deiner Anfrage zu.
-        Weitere Informationen in unserer{" "}
-        <a href="/datenschutz" className="underline underline-offset-2 transition-colors hover:text-fg">
-          Datenschutzerklärung
+        {t.dsgvoPre}
+        <a href={localePath(locale, "/datenschutz")} className="underline underline-offset-2 transition-colors hover:text-fg">
+          {t.dsgvoLinkLabel}
         </a>
-        .
+        {t.dsgvoPost}
       </p>
     </form>
   );

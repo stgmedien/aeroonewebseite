@@ -2,12 +2,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { logo } from "@/data/assets";
 
-export function Logo({ className = "" }: { className?: string }) {
+export function Logo({
+  className = "",
+  href = "/",
+  aria = "Aero One — Startseite",
+}: {
+  className?: string;
+  href?: string;
+  aria?: string;
+}) {
   return (
     <Link
-      href="/"
+      href={href}
       className={`group inline-flex items-center ${className}`}
-      aria-label="Aero One — Startseite"
+      aria-label={aria}
     >
       <Image
         src={logo.wordmark.src}

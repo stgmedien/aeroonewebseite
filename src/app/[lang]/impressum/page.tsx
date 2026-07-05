@@ -1,14 +1,23 @@
 import type { Metadata } from "next";
 import { LegalShell } from "@/components/layout/LegalShell";
+import { getDict, isLocale } from "@/i18n";
 
 export const metadata: Metadata = {
   title: "Impressum",
   description: "Impressum der Aero One – Angaben gemäß § 5 DDG.",
+  alternates: { languages: { de: "/impressum", en: "/en/impressum" } },
 };
 
-export default function ImpressumPage() {
+export default async function ImpressumPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const d = getDict(isLocale(lang) ? lang : "de");
   return (
     <LegalShell title="Impressum" updated="Stand: März 2026">
+      {d.legal.germanBindingNote && (
+        <p className="rounded-2xl border border-white/15 bg-white/5 p-4 text-sm text-fg-muted">
+          {d.legal.germanBindingNote}
+        </p>
+      )}
       <h2>Angaben gemäß § 5 DDG</h2>
       <p>
         <strong>Aero One</strong>

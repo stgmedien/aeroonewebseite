@@ -5,26 +5,27 @@ import { Newspaper, Globe, Radio, Megaphone, Trophy, ArrowUpRight, Mail } from "
 import { InstagramIcon, LinkedInIcon } from "@/components/ui/Icons";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import {
-  pressIntro,
-  pressHighlights,
-  pressContact,
-  pressItems,
-  type PressItem,
-  type PressKind,
-} from "@/data/press";
-import { pressReleases, type PressRelease } from "@/data/pressReleases";
+import { pressItems, type PressItem, type PressKind } from "@/data/press";
+import type { PressRelease } from "@/data/pressReleases";
+import { formatDate, getDict, isLocale, localePath, type Dict, type Locale } from "@/i18n";
 
-export const metadata: Metadata = {
-  title: "Presse",
-  description:
-    "Aero One in der Presse — Berichterstattung und offizielle Pressemitteilungen der mehrfach ausgezeichneten JUNIOR-Schülerfirma aus Gütersloh (IW JUNIOR Landessieger NRW & Bundessieger 2026).",
-  openGraph: {
-    title: "Aero One in der Presse — Beste Schülerfirma Deutschlands 2026",
-    description:
-      "Bundessieger des IW-JUNIOR-Wettbewerbs 2026, Deutschlands Vertreter beim Gen-E-Europa-Finale in Riga: der Medienspiegel und alle offiziellen Pressemitteilungen.",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const d = getDict(isLocale(lang) ? lang : "de");
+  return {
+    title: d.meta.presse.title,
+    description: d.meta.presse.description,
+    openGraph: {
+      title: d.meta.presse.ogTitle,
+      description: d.meta.presse.ogDescription,
+    },
+    alternates: { languages: { de: "/presse", en: "/en/presse" } },
+  };
+}
 
 type IconCmp = ComponentType<{ size?: number }>;
 
@@ -36,9 +37,9 @@ const kindIcon: Record<PressKind, IconCmp> = {
   release: Megaphone,
 };
 
-function PressCard({ item }: { item: PressItem }) {
+function PressCard({ item, locale, t }: { item: PressItem; locale: Locale; t: Dict["presse"] }) {
   let Icon = kindIcon[item.kind];
-  if (item.kindLabel === "LinkedIn") Icon = LinkedInIcon;
+  if (item.url.includes("linkedin.com")) Icon = LinkedInIcon;
 
   return (
     <a
@@ -54,10 +55,12 @@ function PressCard({ item }: { item: PressItem }) {
           </span>
           <span className="flex flex-col">
             <span className="text-sm font-semibold leading-tight text-fg">{item.outlet}</span>
-            <span className="text-[0.7rem] uppercase tracking-wider text-fg-muted">{item.kindLabel}</span>
+            <span className="text-[0.7rem] uppercase tracking-wider text-fg-muted">
+              {t.kindLabels[item.kind]}
+            </span>
           </span>
         </span>
-        <time className="shrink-0 text-xs font-medium text-fg-muted">{item.dateLabel}</time>
+        <time className="shrink-0 text-xs font-medium text-fg-muted">{formatDate(locale, item.date)}</time>
       </div>
 
       <h3 className="mt-4 flex-1 font-display text-lg font-bold leading-snug tracking-tight text-fg">
@@ -65,17 +68,17 @@ function PressCard({ item }: { item: PressItem }) {
       </h3>
 
       <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-ember transition-colors">
-        Zum Beitrag
+        {t.toArticle}
         <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </span>
     </a>
   );
 }
 
-function ReleaseCard({ release }: { release: PressRelease }) {
+function ReleaseCard({ release, locale, t }: { release: PressRelease; locale: Locale; t: Dict["presse"] }) {
   return (
     <Link
-      href={`/presse/${release.slug}`}
+      href={localePath(locale, `/presse/${release.slug}`)}
       className="group flex h-full flex-col rounded-2xl glass p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-card sm:p-7"
     >
       <div className="flex items-center gap-2.5">
@@ -83,7 +86,7 @@ function ReleaseCard({ release }: { release: PressRelease }) {
           <Megaphone size={17} />
         </span>
         <span className="text-xs font-semibold uppercase tracking-wider text-fg-muted">
-          Pressemitteilung · {release.dateLabel}
+          {t.releaseCardKind} · {formatDate(locale, release.date)}
         </span>
       </div>
 
@@ -93,16 +96,21 @@ function ReleaseCard({ release }: { release: PressRelease }) {
       <p className="mt-3 flex-1 text-fg-muted">{release.summary}</p>
 
       <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ember">
-        Pressemitteilung lesen
+        {t.readRelease}
         <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </span>
     </Link>
   );
 }
 
-export default function PressePage() {
+export default async function PressePage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const locale = isLocale(lang) ? lang : "de";
+  const d = getDict(locale);
+  const t = d.presse;
+
   const items = [...pressItems].sort((a, b) => b.date.localeCompare(a.date));
-  const releases = [...pressReleases].sort((a, b) => b.date.localeCompare(a.date));
+  const releases = [...t.releases].sort((a, b) => b.date.localeCompare(a.date));
 
   return (
     <section className="relative isolate overflow-hidden pt-32 pb-24 sm:pt-40">
@@ -111,22 +119,22 @@ export default function PressePage() {
         {/* Header */}
         <div className="max-w-3xl">
           <Reveal>
-            <SectionLabel>{pressIntro.eyebrow}</SectionLabel>
+            <SectionLabel>{t.intro.eyebrow}</SectionLabel>
           </Reveal>
           <Reveal delay={0.1}>
             <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl">
-              Aero One <span className="text-gradient">{pressIntro.highlight}</span>
+              {t.intro.title} <span className="text-gradient">{t.intro.highlight}</span>
             </h1>
           </Reveal>
           <Reveal delay={0.15}>
-            <p className="mt-5 text-lg text-fg-muted">{pressIntro.text}</p>
+            <p className="mt-5 text-lg text-fg-muted">{t.intro.text}</p>
           </Reveal>
         </div>
 
         {/* Highlights */}
         <Reveal delay={0.2}>
           <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {pressHighlights.map((h) => (
+            {t.highlights.map((h) => (
               <div key={h.label} className="flex items-center gap-3 rounded-2xl glass px-4 py-3.5">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-sunset text-ink-deep">
                   <Trophy size={18} />
@@ -140,22 +148,20 @@ export default function PressePage() {
           </div>
         </Reveal>
 
-        {/* Aero One in der Presse (Medienspiegel) */}
+        {/* Medienspiegel */}
         <div className="mt-20">
           <Reveal>
             <h2 className="font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
-              Der <span className="text-gradient">Medienspiegel</span>
+              {t.mediaTitlePre} <span className="text-gradient">{t.mediaTitleHighlight}</span>
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="mt-3 max-w-2xl text-fg-muted">
-              Eine Auswahl der Berichterstattung über Aero One in Print, Online, Radio und Social Media.
-            </p>
+            <p className="mt-3 max-w-2xl text-fg-muted">{t.mediaSub}</p>
           </Reveal>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((item, i) => (
               <Reveal key={item.outlet + item.date + i} delay={Math.min(i * 0.04, 0.3)} className="h-full">
-                <PressCard item={item} />
+                <PressCard item={item} locale={locale} t={t} />
               </Reveal>
             ))}
           </div>
@@ -165,18 +171,16 @@ export default function PressePage() {
         <div className="mt-20">
           <Reveal>
             <h2 className="font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
-              Offizielle <span className="text-gradient">Pressemitteilungen</span>
+              {t.releasesTitlePre} <span className="text-gradient">{t.releasesTitleHighlight}</span>
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="mt-3 max-w-2xl text-fg-muted">
-              Mitteilungen direkt von Aero One – zur freien redaktionellen Verwendung.
-            </p>
+            <p className="mt-3 max-w-2xl text-fg-muted">{t.releasesSub}</p>
           </Reveal>
           <div className="mt-8 grid gap-4 md:grid-cols-2">
             {releases.map((release, i) => (
               <Reveal key={release.slug} delay={Math.min(i * 0.05, 0.3)} className="h-full">
-                <ReleaseCard release={release} />
+                <ReleaseCard release={release} locale={locale} t={t} />
               </Reveal>
             ))}
           </div>
@@ -186,19 +190,19 @@ export default function PressePage() {
         <Reveal delay={0.1}>
           <div className="mt-16 flex flex-col items-start justify-between gap-6 rounded-[1.75rem] glass-strong p-7 sm:flex-row sm:items-center sm:p-9">
             <div className="max-w-md">
-              <h2 className="font-display text-2xl font-extrabold tracking-tight">{pressContact.title}</h2>
-              <p className="mt-2 text-fg-muted">{pressContact.text}</p>
+              <h2 className="font-display text-2xl font-extrabold tracking-tight">{t.contact.title}</h2>
+              <p className="mt-2 text-fg-muted">{t.contact.text}</p>
               <p className="mt-4 text-sm">
-                <span className="font-semibold text-fg">{pressContact.name}</span>
-                <span className="text-fg-muted"> · {pressContact.role}</span>
+                <span className="font-semibold text-fg">{t.contact.name}</span>
+                <span className="text-fg-muted"> · {t.contact.role}</span>
               </p>
             </div>
             <a
-              href={`mailto:${pressContact.email}`}
+              href={`mailto:${t.contact.email}`}
               className="inline-flex items-center gap-2.5 rounded-full bg-sunset px-6 py-3.5 font-semibold text-ink-deep shadow-glow transition-transform duration-300 hover:-translate-y-0.5"
             >
               <Mail size={18} />
-              {pressContact.email}
+              {t.contact.email}
             </a>
           </div>
         </Reveal>

@@ -6,9 +6,9 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { plans, type Plan } from "@/data/pricing";
-import { pricingSection } from "@/data/content";
+import type { Plan } from "@/data/pricing";
 import { bookingUrl, type PlanId } from "@/lib/immohero";
+import type { Dict } from "@/i18n";
 
 type Billing = "once" | "monthly";
 
@@ -72,7 +72,7 @@ function PlanCard({ plan, active }: { plan: Plan; active: Billing }) {
   );
 }
 
-export function Pricing() {
+export function Pricing({ t }: { t: Dict["pricing"] }) {
   const [active, setActive] = useState<Billing>("monthly");
 
   return (
@@ -80,15 +80,15 @@ export function Pricing() {
       <div className="container-x">
         <div className="text-center">
           <Reveal>
-            <SectionLabel>{pricingSection.eyebrow}</SectionLabel>
+            <SectionLabel>{t.eyebrow}</SectionLabel>
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="mx-auto mt-5 max-w-2xl font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl">
-              Simpel und einfach – <span className="text-gradient">unsere Preisgestaltung</span>
+              {t.titlePre} <span className="text-gradient">{t.titleHighlight}</span>
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
-            <p className="mx-auto mt-4 max-w-lg text-fg-muted">{pricingSection.text}</p>
+            <p className="mx-auto mt-4 max-w-lg text-fg-muted">{t.text}</p>
           </Reveal>
 
           {/* Toggle */}
@@ -96,8 +96,8 @@ export function Pricing() {
             <div className="mt-8 inline-flex rounded-full glass p-1">
               {(
                 [
-                  ["once", pricingSection.toggle.once],
-                  ["monthly", pricingSection.toggle.monthly],
+                  ["once", t.toggle.once],
+                  ["monthly", t.toggle.monthly],
                 ] as const
               ).map(([val, label]) => (
                 <button
@@ -122,16 +122,14 @@ export function Pricing() {
         </div>
 
         <div className="mt-14 grid items-center gap-6 lg:grid-cols-3">
-          {plans.map((p, i) => (
+          {t.plans.map((p, i) => (
             <Reveal key={p.id} delay={i * 0.1}>
               <PlanCard plan={p} active={active} />
             </Reveal>
           ))}
         </div>
 
-        <p className="mt-8 text-center text-sm text-fg-muted">
-          Alle Pakete inkl. professioneller Bearbeitung & Lieferung in 48h. Individuelle Anfragen jederzeit möglich.
-        </p>
+        <p className="mt-8 text-center text-sm text-fg-muted">{t.footnote}</p>
       </div>
     </section>
   );

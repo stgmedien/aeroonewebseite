@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/Button";
 import { DroneIcon } from "@/components/ui/Icons";
 
+/** 404 zweisprachig — not-found erhält keine Route-Params. */
 export default function NotFound() {
   return (
     <section className="relative isolate flex min-h-[80vh] items-center justify-center overflow-hidden px-6 text-center">
@@ -17,9 +18,12 @@ export default function NotFound() {
           Die gesuchte Seite konnte nicht gefunden werden. Vielleicht hilft ein
           Blick von oben – zurück zur Startseite.
         </p>
+        <p className="mt-2 max-w-md text-sm text-fg-muted/80">
+          This page has taken off — head back to the homepage.
+        </p>
         <div className="mt-8">
           <Button href="/" size="lg" arrow>
-            Zurück zur Startseite
+            Zurück zur Startseite · Back home
           </Button>
         </div>
       </div>
