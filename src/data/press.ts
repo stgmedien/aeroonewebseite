@@ -32,13 +32,14 @@ export const pressIntro = {
   title: "Aero One in der Presse",
   highlight: "in der Presse",
   text:
-    "Als JUNIOR-Schülerfirma am Evangelisch Stiftischen Gymnasium Gütersloh haben wir den IW-JUNIOR-Landeswettbewerb NRW gewonnen und beim Bundesfinale in Köln überzeugt. Eine Auswahl der Berichterstattung:",
+    "Als JUNIOR-Schülerfirma am Evangelisch Stiftischen Gymnasium Gütersloh haben wir 2026 den IW-JUNIOR-Landeswettbewerb NRW und das Bundesfinale in Köln gewonnen – als beste Schülerfirma Deutschlands. Vom 7. bis 10. Juli vertreten wir Deutschland beim Europa-Finale „Gen-E“ in Riga. Eine Auswahl der Berichterstattung:",
 };
 
 export const pressHighlights = [
   { label: "Landessieger NRW 2026", sub: "IW JUNIOR Landeswettbewerb" },
-  { label: "Bundesfinale Köln 2026", sub: "IW JUNIOR Bundeswettbewerb" },
-  { label: "12 Medienberichte", sub: "Print · Online · Radio · Social" },
+  { label: "Bundessieger 2026", sub: "Beste Schülerfirma Deutschlands" },
+  { label: "Europa-Finale Riga", sub: "Gen-E · 7.–10. Juli 2026" },
+  { label: "13 Medienberichte", sub: "Print · Online · Radio · Social" },
 ];
 
 export const pressContact = {
@@ -50,6 +51,16 @@ export const pressContact = {
 };
 
 export const pressItems: PressItem[] = [
+  {
+    date: "2026-06-25",
+    dateLabel: "25. Juni 2026",
+    outlet: "Die Glocke",
+    title: "Bloomberg coacht Gütersloher Schülerfirma Aero One für Europaentscheid",
+    url: "https://www.die-glocke.de/kreis-guetersloh/guetersloh/artikel/bloomberg-coacht-guetersloher-schuelerfirma-aero-one-fuer-europaentscheid-in-riga-1782314711",
+    kind: "print",
+    kindLabel: "Tageszeitung",
+    exact: true,
+  },
   {
     date: "2026-06-17",
     dateLabel: "17. Juni 2026",

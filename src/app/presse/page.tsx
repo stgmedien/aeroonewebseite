@@ -120,7 +120,7 @@ export default function PressePage() {
 
         {/* Highlights */}
         <Reveal delay={0.2}>
-          <div className="mt-10 grid gap-3 sm:grid-cols-3">
+          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {pressHighlights.map((h) => (
               <div key={h.label} className="flex items-center gap-3 rounded-2xl glass px-4 py-3.5">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-sunset text-ink-deep">
