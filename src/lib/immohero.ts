@@ -5,7 +5,7 @@
  * Später: pro Paket parametrisieren (z. B. ?plan=retainer) bzw. echten
  * Checkout-/Deep-Link aufbauen, sobald die immohero-Integrationsinfos vorliegen.
  */
-import { BOOKING_URL } from "@/data/nav";
+import { BOOKING_URL, ONBOARDING_URL } from "@/data/nav";
 
 export type PlanId = "basic" | "retainer" | "premium";
 
@@ -19,4 +19,9 @@ export function bookingUrl(plan?: PlanId): string {
   } catch {
     return base;
   }
+}
+
+/** Netzwerk-Beitritt (Pilot:innen/Videograf:innen/Fotograf:innen) — Platzhalter bis der finale Link vorliegt. */
+export function onboardingUrl(): string {
+  return process.env.NEXT_PUBLIC_ONBOARDING_URL || ONBOARDING_URL;
 }

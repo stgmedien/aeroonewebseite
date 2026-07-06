@@ -11,7 +11,7 @@ export function Team({ t }: { t: Dict["team"] }) {
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>
-            <SectionLabel>{t.eyebrow}</SectionLabel>
+            <SectionLabel no="05">{t.eyebrow}</SectionLabel>
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl">

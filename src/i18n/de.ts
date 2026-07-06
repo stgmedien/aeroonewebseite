@@ -1,5 +1,5 @@
 /**
- * Deutsches Dictionary — Quelle der Wahrheit für alle deutschen UI-Texte.
+ * Deutsches Dictionary – Quelle der Wahrheit für alle deutschen UI-Texte.
  * (Inhalte aus src/data/* konsolidiert; dort liegen weiterhin die
  * sprachneutralen Daten: Assets, URLs, Partner, Presse-Rohdaten.)
  */
@@ -22,8 +22,8 @@ export const de: Dict = {
     presse: {
       title: "Presse",
       description:
-        "Aero One in der Presse — Berichterstattung und offizielle Pressemitteilungen der mehrfach ausgezeichneten JUNIOR-Schülerfirma aus Gütersloh (IW JUNIOR Landessieger NRW & Bundessieger 2026).",
-      ogTitle: "Aero One in der Presse — Beste Schülerfirma Deutschlands 2026",
+        "Aero One in der Presse – Berichterstattung und offizielle Pressemitteilungen der mehrfach ausgezeichneten JUNIOR-Schülerfirma aus Gütersloh (IW JUNIOR Landessieger NRW & Bundessieger 2026).",
+      ogTitle: "Aero One in der Presse – Beste Schülerfirma Deutschlands 2026",
       ogDescription:
         "Bundessieger des IW-JUNIOR-Wettbewerbs 2026, Deutschlands Vertreter beim Gen-E-Europa-Finale in Riga: der Medienspiegel und alle offiziellen Pressemitteilungen.",
     },
@@ -49,7 +49,7 @@ export const de: Dict = {
     booking: "Jetzt Buchen!",
     menuOpen: "Menü öffnen",
     menuClose: "Menü schließen",
-    logoAria: "Aero One — Startseite",
+    logoAria: "Aero One – Startseite",
   },
 
   hero: {
@@ -73,11 +73,35 @@ export const de: Dict = {
     titleHighlight: "höchster Qualität",
   },
 
+  problem: {
+    eyebrow: "Das Problem",
+    titlePre: "Immobilien werden online verkauft – doch die Fotos sind oft",
+    titleHighlight: "ein Desaster.",
+    text: "Wer heute eine Immobilie vermarktet, kämpft mit drei Hürden – und verliert dabei Reichweite, Zeit und Vertrauen.",
+    pains: [
+      {
+        icon: "hourglass",
+        title: "Bis zu 3 Wochen Wartezeit",
+        text: "Klassische Anbieter sind ausgebucht. Wer auf professionelle Aufnahmen wartet, verliert wertvolle Vermarktungszeit.",
+      },
+      {
+        icon: "smartphone",
+        title: "Handy-Schnappschüsse statt Qualität",
+        text: "Schiefe Winkel, schlechtes Licht, keine Bearbeitung – so verliert selbst die beste Immobilie an Wirkung.",
+      },
+      {
+        icon: "scale",
+        title: "Datenschutz & Drohnenrecht",
+        text: "Drohnenflüge unterliegen strengen Regeln. Ohne Registrierung, Versicherung und Blick auf die DSGVO drohen Bußgelder.",
+      },
+    ],
+  },
+
   stat: {
-    eyebrow: "Auf Ihre Immobilie zugeschnitten",
-    title: "Immobilien überzeugend",
-    titleHighlight: "in Szene gesetzt",
-    text: "Mit professionellen Drohnen-Luftbildaufnahmen präsentieren Sie Lage, Grundstück und Architektur Ihrer Immobilie wirkungsvoll – und schaffen sofort Aufmerksamkeit bei Interessenten.",
+    eyebrow: "Die Lösung",
+    title: "Rechtssichere Immobilienaufnahmen",
+    titleHighlight: "in unter 48 Stunden",
+    text: "Für Makler:innen, Bauunternehmen und Architekturbüros: professionelle Luftbilder und Videos – von zertifizierten Pilot:innen geflogen, DSGVO-konform umgesetzt und fertig bearbeitet in unter 48 Stunden.",
     kicker: "Bereit durchzustarten?",
     ctaLabel: "Jetzt Buchen!",
     badges: [
@@ -106,8 +130,15 @@ export const de: Dict = {
     sliderHint: "Ziehe den Regler – vom Standardfoto zur Luftaufnahme.",
   },
 
+  immoHero: {
+    title: "Sie verkaufen privat?",
+    text: "Privatkund:innen buchen professionelle Aufnahmen direkt auf immohero.org.",
+    ctaLabel: "Zu immohero.org",
+    note: "Pakete ab 79 €",
+  },
+
   showcase: {
-    eyebrow: "Galerie",
+    eyebrow: "Referenzen",
     title: "Ein Blick aus der Vogelperspektive",
     text: "Jedes Projekt verdient eine Bühne. Ein Auszug aus realisierten Aufnahmen für Immobilien, Events und Unternehmen.",
   },
@@ -116,12 +147,26 @@ export const de: Dict = {
     eyebrow: "360°-Rundgang",
     titlePre: "Erkunde Immobilien aus",
     titleHighlight: "jeder Perspektive",
-    text: "Interaktive 360°-Luftpanoramen direkt im Browser — ziehen zum Umsehen, scrollen zum Zoomen.",
+    text: "Interaktive 360°-Luftpanoramen direkt im Browser – ziehen zum Umsehen, scrollen zum Zoomen.",
     note: "Beispielprojekt · Kaup Immobilien",
     loading: "Panorama lädt …",
     hint: "Ziehen zum Umsehen · Scrollen zum Zoomen",
     sceneLabels: ["Standpunkt 1", "Standpunkt 2"],
     sceneAria: "Zu {label} wechseln",
+  },
+
+  network: {
+    eyebrow: "Vision",
+    titlePre: "Unser Traum: ein Netzwerk für",
+    titleHighlight: "ganz Europa",
+    text: "Wir bauen ein europaweites Netzwerk aus Drohnenpilot:innen, Videograf:innen und Fotograf:innen – damit professionelle Immobilienaufnahmen überall in unter 48 Stunden möglich werden. Du fliegst, filmst oder fotografierst? Dann werde Teil davon.",
+    roles: [
+      { icon: "drone", label: "Drohnenpilot:innen" },
+      { icon: "video", label: "Videograf:innen" },
+      { icon: "camera", label: "Fotograf:innen" },
+    ],
+    ctaLabel: "Werde Teil des Netzwerks",
+    ctaNote: "Onboarding über unseren Partner ImmoHero",
   },
 
   team: {
@@ -136,6 +181,40 @@ export const de: Dict = {
       "Linus Held": "Co-Gründer und Drohnenpilot",
       "Friedrich Grüninger": "Drohnenpilot in Ausbildung",
     },
+  },
+
+  impact: {
+    eyebrow: "Impact",
+    titlePre: "Wir vermarkten Immobilien –",
+    titleHighlight: "mit dem Morgen im Blick.",
+    text: "Aero One ist mehr als ein Geschäftsmodell. Wir schaffen Chancen für junge Menschen – hier in der Region und überall dort, wo unser Netzwerk wächst.",
+    items: [
+      {
+        icon: "heartHandshake",
+        title: "Faire Arbeit für junge Menschen",
+        text: "Echte Verantwortung, echte Projekte, echte Wertschätzung – von Anfang an.",
+      },
+      {
+        icon: "graduation",
+        title: "Ausbildung & Einstieg in der Region",
+        text: "Ausbildungs- und Einstiegsplätze, die jungen Talenten den Start ins Berufsleben öffnen.",
+      },
+      {
+        icon: "handCoins",
+        title: "Faire Bezahlung & Perspektive",
+        text: "Faire Vergütung und langfristige Karrierewege statt Praktikumsschleifen.",
+      },
+      {
+        icon: "sprout",
+        title: "Zukunftsfähige Skills",
+        text: "Praxisnahes Lernen: Drohnentechnik, Medienproduktion, Unternehmertum.",
+      },
+      {
+        icon: "mapPin",
+        title: "Regionale Wertschöpfung",
+        text: "Aufträge, Wissen und Wertschöpfung bleiben in der Region.",
+      },
+    ],
   },
 
   testimonials: {
@@ -232,6 +311,11 @@ export const de: Dict = {
     ],
     footnote:
       "Alle Pakete inkl. professioneller Bearbeitung & Lieferung in 48h. Individuelle Anfragen jederzeit möglich.",
+    immoHeroNote: {
+      pre: "Privatkund:in? Pakete ab 79 € gibt es direkt auf ",
+      linkLabel: "immohero.org",
+      post: ".",
+    },
   },
 
   freyaCta: {

@@ -8,6 +8,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import type { Plan } from "@/data/pricing";
 import { bookingUrl, type PlanId } from "@/lib/immohero";
+import { IMMOHERO_URL } from "@/data/nav";
 import type { Dict } from "@/i18n";
 
 type Billing = "once" | "monthly";
@@ -80,7 +81,7 @@ export function Pricing({ t }: { t: Dict["pricing"] }) {
       <div className="container-x">
         <div className="text-center">
           <Reveal>
-            <SectionLabel>{t.eyebrow}</SectionLabel>
+            <SectionLabel no="07">{t.eyebrow}</SectionLabel>
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="mx-auto mt-5 max-w-2xl font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl">
@@ -130,6 +131,18 @@ export function Pricing({ t }: { t: Dict["pricing"] }) {
         </div>
 
         <p className="mt-8 text-center text-sm text-fg-muted">{t.footnote}</p>
+        <p className="mt-2 text-center text-sm text-fg-muted">
+          {t.immoHeroNote.pre}
+          <a
+            href={IMMOHERO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-ember transition-colors hover:text-gold"
+          >
+            {t.immoHeroNote.linkLabel}
+          </a>
+          {t.immoHeroNote.post}
+        </p>
       </div>
     </section>
   );

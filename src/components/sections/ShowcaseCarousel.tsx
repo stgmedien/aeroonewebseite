@@ -19,7 +19,7 @@ export function ShowcaseCarousel({ t }: { t: Dict["showcase"] }) {
         <div className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div>
             <Reveal>
-              <SectionLabel>{t.eyebrow}</SectionLabel>
+              <SectionLabel no="03">{t.eyebrow}</SectionLabel>
             </Reveal>
             <Reveal delay={0.1}>
               <h2 className="mt-5 max-w-2xl font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl">

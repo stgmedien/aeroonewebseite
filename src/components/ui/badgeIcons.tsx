@@ -7,21 +7,42 @@ import {
   Eye,
   Layers,
   Sparkles,
+  Hourglass,
+  Smartphone,
+  Scale,
+  HeartHandshake,
+  GraduationCap,
+  HandCoins,
+  Sprout,
+  MapPin,
+  Video,
 } from "lucide-react";
-import type { ReactNode } from "react";
+import type { ComponentType, ReactNode } from "react";
 import type { BadgeIconKey } from "@/i18n";
+import { DroneIcon } from "./Icons";
 
 /** Sprachneutrale Icon-Keys (Labels kommen aus dem Dict). */
-const map: Record<BadgeIconKey, ReactNode> = {
-  shield: <ShieldCheck size={16} />,
-  camera: <Camera size={16} />,
-  flex: <Repeat2 size={16} />,
-  clock: <Clock size={16} />,
-  tag: <Tag size={16} />,
-  eye: <Eye size={16} />,
-  layers: <Layers size={16} />,
+const map: Record<BadgeIconKey, ComponentType<{ size?: number }>> = {
+  shield: ShieldCheck,
+  camera: Camera,
+  flex: Repeat2,
+  clock: Clock,
+  tag: Tag,
+  eye: Eye,
+  layers: Layers,
+  hourglass: Hourglass,
+  smartphone: Smartphone,
+  scale: Scale,
+  heartHandshake: HeartHandshake,
+  graduation: GraduationCap,
+  handCoins: HandCoins,
+  sprout: Sprout,
+  mapPin: MapPin,
+  video: Video,
+  drone: DroneIcon,
 };
 
-export function badgeIcon(key: BadgeIconKey): ReactNode {
-  return map[key] ?? <Sparkles size={16} />;
+export function badgeIcon(key: BadgeIconKey, size = 16): ReactNode {
+  const Icon = map[key] ?? Sparkles;
+  return <Icon size={size} />;
 }

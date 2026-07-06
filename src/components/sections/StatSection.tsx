@@ -28,7 +28,7 @@ export function StatSection({ t }: { t: Dict["stat"] }) {
         {/* Inhalt */}
         <div>
           <Reveal>
-            <SectionLabel>{t.eyebrow}</SectionLabel>
+            <SectionLabel no="02">{t.eyebrow}</SectionLabel>
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl">

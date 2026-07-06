@@ -74,11 +74,35 @@ export const en: Dict = {
     titleHighlight: "the highest quality",
   },
 
+  problem: {
+    eyebrow: "The problem",
+    titlePre: "Properties are sold online — yet the photos are often",
+    titleHighlight: "a disaster.",
+    text: "Anyone marketing a property today faces three hurdles — and loses reach, time and trust along the way.",
+    pains: [
+      {
+        icon: "hourglass",
+        title: "Up to 3 weeks of waiting",
+        text: "Established providers are booked out. Waiting for professional footage costs valuable marketing time.",
+      },
+      {
+        icon: "smartphone",
+        title: "Phone snapshots, not quality",
+        text: "Crooked angles, poor light, no editing — even the best property loses its impact this way.",
+      },
+      {
+        icon: "scale",
+        title: "Data protection & drone law",
+        text: "Drone flights are strictly regulated. Without registration, insurance and GDPR awareness, you risk fines.",
+      },
+    ],
+  },
+
   stat: {
-    eyebrow: "Tailored to your property",
-    title: "Showcasing properties",
-    titleHighlight: "at their very best",
-    text: "With professional aerial drone photography, you present your property's location, grounds and architecture to full effect – and capture prospective buyers' attention from the very first glance.",
+    eyebrow: "The solution",
+    title: "Legally compliant property footage",
+    titleHighlight: "in under 48 hours",
+    text: "For estate agents, construction firms and architecture practices: professional aerial photos and videos — shot by certified pilots, legally compliant and fully edited in under 48 hours.",
     kicker: "Ready for take-off?",
     ctaLabel: "Book now!",
     badges: [
@@ -107,8 +131,15 @@ export const en: Dict = {
     sliderHint: "Drag the slider – from a standard photo to an aerial shot.",
   },
 
+  immoHero: {
+    title: "Selling privately?",
+    text: "Private customers book professional footage directly on immohero.org.",
+    ctaLabel: "Go to immohero.org",
+    note: "Packages from €79",
+  },
+
   showcase: {
-    eyebrow: "Gallery",
+    eyebrow: "Showcase",
     title: "A bird's-eye view",
     text: "Every project deserves a stage. A selection of footage produced for real estate, events and businesses.",
   },
@@ -125,6 +156,20 @@ export const en: Dict = {
     sceneAria: "Switch to {label}",
   },
 
+  network: {
+    eyebrow: "Vision",
+    titlePre: "Our dream: a network across",
+    titleHighlight: "all of Europe",
+    text: "We are building a Europe-wide network of drone pilots, videographers and photographers — so professional property footage becomes available anywhere in under 48 hours. Fly, film or shoot? Join us.",
+    roles: [
+      { icon: "drone", label: "Drone pilots" },
+      { icon: "video", label: "Videographers" },
+      { icon: "camera", label: "Photographers" },
+    ],
+    ctaLabel: "Join the network",
+    ctaNote: "Onboarding via our partner ImmoHero",
+  },
+
   team: {
     eyebrow: "Team",
     titlePre: "The minds behind",
@@ -137,6 +182,40 @@ export const en: Dict = {
       "Linus Held": "Co-Founder & Drone Pilot",
       "Friedrich Grüninger": "Drone Pilot in Training",
     },
+  },
+
+  impact: {
+    eyebrow: "Impact",
+    titlePre: "We market real estate —",
+    titleHighlight: "with tomorrow in mind.",
+    text: "Aero One is more than a business model. We create opportunities for young people — here in our region and wherever our network grows.",
+    items: [
+      {
+        icon: "heartHandshake",
+        title: "Fair work for young people",
+        text: "Real responsibility, real projects, real appreciation — from day one.",
+      },
+      {
+        icon: "graduation",
+        title: "Apprenticeships & entry-level roles",
+        text: "Training positions and first jobs that open doors for young talent in the region.",
+      },
+      {
+        icon: "handCoins",
+        title: "Fair pay & long-term prospects",
+        text: "Fair compensation and lasting career paths instead of endless internships.",
+      },
+      {
+        icon: "sprout",
+        title: "Future-ready skills",
+        text: "Hands-on learning: drone technology, media production, entrepreneurship.",
+      },
+      {
+        icon: "mapPin",
+        title: "Regional value creation",
+        text: "Work, knowledge and value stay in the region.",
+      },
+    ],
   },
 
   testimonials: {
@@ -233,6 +312,11 @@ export const en: Dict = {
     ],
     footnote:
       "All packages include professional editing & delivery within 48 hours. Custom requests welcome at any time.",
+    immoHeroNote: {
+      pre: "Private customer? Packages from €79 are available directly on ",
+      linkLabel: "immohero.org",
+      post: ".",
+    },
   },
 
   freyaCta: {

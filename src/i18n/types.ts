@@ -20,9 +20,23 @@ export type BadgeIconKey =
   | "clock"
   | "tag"
   | "eye"
-  | "layers";
+  | "layers"
+  // Gen-E-Storyline:
+  | "hourglass"
+  | "smartphone"
+  | "scale"
+  | "heartHandshake"
+  | "graduation"
+  | "handCoins"
+  | "sprout"
+  | "mapPin"
+  | "video"
+  | "drone";
 
 export type BadgeItem = { icon: BadgeIconKey; label: string };
+
+/** Karte mit Icon, Titel und Beschreibung (Problem-/Impact-Sektionen). */
+export type FeatureCard = { icon: BadgeIconKey; title: string; text: string };
 
 export type NavLink = { label: string; href: string };
 
@@ -51,6 +65,13 @@ export type Dict = {
     scroll: string;
   };
   logoStrip: { trust: string; eyebrow: string; titlePre: string; titleHighlight: string };
+  problem: {
+    eyebrow: string;
+    titlePre: string;
+    titleHighlight: string;
+    text: string;
+    pains: FeatureCard[];
+  };
   stat: {
     eyebrow: string;
     title: string;
@@ -72,6 +93,13 @@ export type Dict = {
     afterLabel: string;
     sliderHint: string;
   };
+  /** Callout im Lösungs-Kapitel: Privatkund:innen → immohero.org ab 79 €. */
+  immoHero: {
+    title: string;
+    text: string;
+    ctaLabel: string;
+    note: string;
+  };
   showcase: { eyebrow: string; title: string; text: string };
   panorama: {
     eyebrow: string;
@@ -85,6 +113,16 @@ export type Dict = {
     /** aria: "Zu {label} wechseln" / "Switch to {label}" — {label} wird ersetzt */
     sceneAria: string;
   };
+  /** Vision: europaweites Netzwerk aus Pilot:innen/Videograf:innen/Fotograf:innen. */
+  network: {
+    eyebrow: string;
+    titlePre: string;
+    titleHighlight: string;
+    text: string;
+    roles: BadgeItem[];
+    ctaLabel: string;
+    ctaNote: string;
+  };
   team: {
     eyebrow: string;
     titlePre: string;
@@ -92,6 +130,14 @@ export type Dict = {
     text: string;
     /** Rollen je Person (Key = Name aus assets.team) */
     roles: Record<string, string>;
+  };
+  /** Impact: „mit dem Morgen im Blick" — 5 Karten. */
+  impact: {
+    eyebrow: string;
+    titlePre: string;
+    titleHighlight: string;
+    text: string;
+    items: FeatureCard[];
   };
   testimonials: { eyebrow: string; items: Testimonial[] };
   pricing: {
@@ -102,6 +148,8 @@ export type Dict = {
     toggle: { once: string; monthly: string };
     plans: Plan[];
     footnote: string;
+    /** Satz mit Link-Slot: Privatkund:innen → immohero.org ab 79 €. */
+    immoHeroNote: { pre: string; linkLabel: string; post: string };
   };
   freyaCta: {
     titlePre: string;
