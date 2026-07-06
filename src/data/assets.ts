@@ -44,11 +44,11 @@ export type TeamMember = { name: string; role: string; src: string; width: numbe
 
 /** Team (Rollen & Reihenfolge vom Kunden bestätigt). Amy steht neben Freya (Vertrieb). */
 export const team: TeamMember[] = [
-  { name: "Jonathan Kreutzheide", role: "Geschäftsführer", src: "/media/team/jonathan.jpg", width: 725, height: 900 },
-  { name: "Freya Knight", role: "Vertriebsleitung", src: "/media/team/freya.jpg", width: 416, height: 900 },
-  { name: "Amy Thomalla", role: "Vertriebskraft", src: "/media/team/amy.jpg", width: 600, height: 900 },
-  { name: "Linus Held", role: "Drohnenpilot", src: "/media/team/linus.jpg", width: 600, height: 900 },
-  { name: "Friedrich Grüninger", role: "Marketing & Drohnenpilot in Ausbildung", src: "/media/team/friederich.jpg", width: 600, height: 900 },
+  { name: "Jonathan Kreutzheide", role: "Co-Gründer und Geschäftsführer", src: "/media/team/jonathan.jpg", width: 725, height: 900 },
+  { name: "Freya Knight", role: "Head of Sales", src: "/media/team/freya.jpg", width: 416, height: 900 },
+  { name: "Amy Thomalla", role: "Marketing Manager", src: "/media/team/amy.jpg", width: 600, height: 900 },
+  { name: "Linus Held", role: "Co-Gründer und Drohnenpilot", src: "/media/team/linus.jpg", width: 600, height: 900 },
+  { name: "Friedrich Grüninger", role: "Drohnenpilot in Ausbildung", src: "/media/team/friederich.jpg", width: 600, height: 900 },
 ];
 
 /** Sektions-Texte für die neuen Bereiche. */

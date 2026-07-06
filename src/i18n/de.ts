@@ -130,11 +130,11 @@ export const de: Dict = {
     titleHighlight: "Aero One",
     text: "Fünf Schüler:innen des ESG Gütersloh – 2026 als beste Schülerfirma Deutschlands ausgezeichnet. Von der Idee bis zum fertigen Film.",
     roles: {
-      "Jonathan Kreutzheide": "Geschäftsführer",
-      "Freya Knight": "Vertriebsleitung",
-      "Amy Thomalla": "Vertriebskraft",
-      "Linus Held": "Drohnenpilot",
-      "Friedrich Grüninger": "Marketing & Drohnenpilot in Ausbildung",
+      "Jonathan Kreutzheide": "Co-Gründer und Geschäftsführer",
+      "Freya Knight": "Head of Sales",
+      "Amy Thomalla": "Marketing Manager",
+      "Linus Held": "Co-Gründer und Drohnenpilot",
+      "Friedrich Grüninger": "Drohnenpilot in Ausbildung",
     },
   },
 
@@ -241,7 +241,7 @@ export const de: Dict = {
     ctaLabel: "Jetzt Buchen!",
     person: {
       name: "Freya Knight",
-      role: "Vertriebsleiterin",
+      role: "Head of Sales",
       email: "aeroonemail@gmail.com",
     },
   },

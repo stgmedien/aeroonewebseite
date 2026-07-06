@@ -131,11 +131,11 @@ export const en: Dict = {
     titleHighlight: "Aero One",
     text: "Five students at ESG Gütersloh – named Germany's Best Student Company 2026. From the first idea to the finished film.",
     roles: {
-      "Jonathan Kreutzheide": "Managing Director",
+      "Jonathan Kreutzheide": "Co-Founder & Managing Director",
       "Freya Knight": "Head of Sales",
-      "Amy Thomalla": "Sales",
-      "Linus Held": "Drone Pilot",
-      "Friedrich Grüninger": "Marketing & Drone Pilot in Training",
+      "Amy Thomalla": "Marketing Manager",
+      "Linus Held": "Co-Founder & Drone Pilot",
+      "Friedrich Grüninger": "Drone Pilot in Training",
     },
   },
 
