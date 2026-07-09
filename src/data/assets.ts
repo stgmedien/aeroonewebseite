@@ -24,6 +24,17 @@ export const video = {
     poster: "/media/video/milse-haus-poster.jpg",
     title: "Referenzvideo · Landhaus im Wald",
   },
+  /** Inflight-Clips (4K-Drohnenflüge, Landhaus im Wald). */
+  milseInflight1: {
+    src: "/media/video/milse-inflight-1.mp4",
+    poster: "/media/video/milse-inflight-1-poster.jpg",
+    title: "Inflight · Durchflug Landhaus",
+  },
+  milseInflight2: {
+    src: "/media/video/milse-inflight-2.mp4",
+    poster: "/media/video/milse-inflight-2-poster.jpg",
+    title: "Inflight · Anflug Landhaus",
+  },
 };
 
 export const photos = {

@@ -32,5 +32,16 @@ ffmpeg -y -loglevel error -i "$SRC/Milse/Milse Haus.mov" \
 ffmpeg -y -loglevel error -ss 3 -i "$SRC/Milse/Milse Haus.mov" -frames:v 1 -vf "scale=1600:-2" -q:v 3 "$OUT/milse-haus-poster.jpg"
 echo "  ✓ milse-haus.mp4 + poster"
 
+echo "→ Inflight-Clips Landhaus (1920px, CRF24/27, mit Audio)"
+ffmpeg -y -loglevel error -i "$SRC/Milse/Inflight Milse 1.mov" \
+  -vf "scale='min(1920,iw)':-2" -c:v libx264 -preset medium -crf 24 \
+  -c:a aac -b:a 128k -pix_fmt yuv420p -movflags +faststart "$OUT/milse-inflight-1.mp4"
+ffmpeg -y -loglevel error -ss 0.5 -i "$SRC/Milse/Inflight Milse 1.mov" -frames:v 1 -vf "scale=1600:-2" -q:v 3 "$OUT/milse-inflight-1-poster.jpg"
+ffmpeg -y -loglevel error -i "$SRC/Milse/Inflight Milse 2.mov" \
+  -vf "scale='min(1920,iw)':-2" -c:v libx264 -preset medium -crf 27 \
+  -c:a aac -b:a 128k -pix_fmt yuv420p -movflags +faststart "$OUT/milse-inflight-2.mp4"
+ffmpeg -y -loglevel error -ss 6 -i "$SRC/Milse/Inflight Milse 2.mov" -frames:v 1 -vf "scale=1600:-2" -q:v 3 "$OUT/milse-inflight-2-poster.jpg"
+echo "  ✓ milse-inflight-1/2.mp4 + poster"
+
 echo "FERTIG."
 ls -lh "$OUT"

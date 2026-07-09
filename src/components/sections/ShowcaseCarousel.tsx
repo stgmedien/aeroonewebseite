@@ -10,9 +10,9 @@ const spans = [
   "",
   "",
   "",
-  "lg:col-span-2",
-  "lg:col-span-2",
   "",
+  "lg:col-span-2",
+  "lg:col-span-2",
 ];
 
 const photoItems: GalleryItem[] = galleryPhotos.map((p, i) => ({
@@ -21,17 +21,29 @@ const photoItems: GalleryItem[] = galleryPhotos.map((p, i) => ({
   className: spans[i] ?? "",
 }));
 
-const videoItem: GalleryItem = {
+const toVideoItem = (v: { src: string; poster: string; title: string }, className: string): GalleryItem => ({
   type: "video",
-  src: video.milse.poster,
-  videoSrc: video.milse.src,
-  poster: video.milse.poster,
-  alt: video.milse.title,
-  className: "lg:col-span-2 lg:row-span-2",
-};
+  src: v.poster,
+  videoSrc: v.src,
+  poster: v.poster,
+  alt: v.title,
+  className,
+});
 
-// Video prominent an zweiter Stelle (neben dem großen Auftaktbild).
-const items: GalleryItem[] = [photoItems[0], videoItem, ...photoItems.slice(1)];
+// Hauptvideo prominent neben dem Auftaktbild, die beiden Inflight-Clips
+// als breite Kacheln in den Folgereihen verteilt (Bento bleibt lückenlos).
+const items: GalleryItem[] = [
+  photoItems[0],
+  toVideoItem(video.milse, "lg:col-span-2 lg:row-span-2"),
+  photoItems[1],
+  photoItems[2],
+  toVideoItem(video.milseInflight1, "lg:col-span-2"),
+  toVideoItem(video.milseInflight2, "lg:col-span-2"),
+  photoItems[3],
+  photoItems[4],
+  photoItems[5],
+  photoItems[6],
+];
 
 export function ShowcaseCarousel({ t }: { t: Dict["showcase"] }) {
   return (
