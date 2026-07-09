@@ -7,7 +7,9 @@ const BASE = "https://www.aeroone.eu";
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "",
+    "/ueber-uns",
     "/kontakt",
+    "/faq",
     "/presse",
     ...pressReleases.map((r) => `/presse/${r.slug}`),
     "/impressum",

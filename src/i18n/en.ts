@@ -28,6 +28,16 @@ export const en: Dict = {
       ogDescription:
         "National champions of the 2026 IW JUNIOR competition, representing Germany at the Gen-E European finals in Riga: the full media coverage and all official press releases.",
     },
+    about: {
+      title: "About us",
+      description:
+        "Aero One — from a school elective to Germany's Best Student Company 2026. Our story, our mission and our values.",
+    },
+    faq: {
+      title: "FAQ",
+      description:
+        "Answers about Aero One: turnaround, pricing, legal compliance, regions and the Europe-wide pilot network.",
+    },
   },
 
   announcement: {
@@ -42,7 +52,7 @@ export const en: Dict = {
     links: [
       { label: "Home", href: "/" },
       { label: "Services", href: "/#leistungen" },
-      { label: "Gallery", href: "/#galerie" },
+      { label: "About", href: "/ueber-uns" },
       { label: "Pricing", href: "/#preise" },
       { label: "Press", href: "/presse" },
       { label: "Contact", href: "/kontakt" },
@@ -361,12 +371,14 @@ export const en: Dict = {
     colInfo: "Information",
     pages: [
       { label: "Home", href: "/" },
+      { label: "About", href: "/ueber-uns" },
       { label: "Services", href: "/#leistungen" },
       { label: "Pricing", href: "/#preise" },
       { label: "Press", href: "/presse" },
       { label: "Contact", href: "/kontakt" },
     ],
     legal: [
+      { label: "FAQ", href: "/faq" },
       { label: "Legal Notice", href: "/impressum" },
       { label: "Privacy Policy", href: "/datenschutz" },
     ],
@@ -425,5 +437,113 @@ export const en: Dict = {
 
   legal: {
     germanBindingNote: "This page is available in German only — the German version is legally binding.",
+  },
+
+  about: {
+    eyebrow: "About us",
+    titlePre: "From the classroom to",
+    titleHighlight: "Germany's best student company.",
+    lead: "Aero One is a JUNIOR student company at Evangelisch Stiftisches Gymnasium in Gütersloh, Germany. Five students, one idea, a professional standard — and within a single year the title “Germany's Best Student Company 2026”. Here's who we are, what we believe in and where we're headed.",
+    stats: [
+      { value: "< 48 h", label: "turnaround" },
+      { value: "5", label: "projects delivered" },
+      { value: "13", label: "media features" },
+      { value: "2026", label: "IW JUNIOR national champions" },
+    ],
+    missionEyebrow: "Mission",
+    missionTitle: "Professional property footage — fast, legally compliant and accessible to everyone.",
+    missionText: "Great photos sell properties. Yet many are held back by waiting times, poor quality and drone regulation. We deliver professional aerial photos and videos in under 48 hours — legally handled and fully bookable online. Our goal: a Europe-wide network that makes this quality available anywhere and opens real opportunities for young people.",
+    storyEyebrow: "Our journey",
+    storyTitle: "How a classroom idea became a national champion",
+    milestones: [
+      {
+        date: "Autumn 2025",
+        title: "The idea",
+        text: "In the elective “Economics, Media and Culture” (WMK), Linus approaches Jonathan with an idea: “something with drones”. An industry average response time of three weeks becomes the brand promise of 48-hour delivery.",
+      },
+      {
+        date: "December 2025",
+        title: "“Dragons' Den”",
+        text: "The team pitches its idea to external entrepreneurs and advisors — the school's own format modelled on the TV show “Dragons' Den”. The concept turns into a real business.",
+      },
+      {
+        date: "Spring 2026",
+        title: "First clients",
+        text: "Five projects are delivered — including work for the Gütersloh estate agency Kaup and the economic development agency Concept GT. After the very first outreach, Freya returns with two clients.",
+      },
+      {
+        date: "21 May 2026",
+        title: "NRW state champions",
+        text: "Aero One wins the IW JUNIOR state competition for North Rhine-Westphalia in Cologne — securing its ticket to the national final.",
+      },
+      {
+        date: "16 June 2026",
+        title: "Germany's best student company",
+        text: "At the national final in Cologne the team beats 13 other state champions to become National Champions 2026. Managing Director Jonathan Kreutzheide also receives the Leadership Award.",
+      },
+      {
+        date: "7–10 July 2026",
+        title: "European finals in Riga",
+        text: "After a coaching session at Bloomberg in Frankfurt, Aero One represents Germany at Gen-E, Europe's largest entrepreneurship festival, in Riga.",
+      },
+    ],
+    valuesEyebrow: "Our values",
+    valuesTitle: "What we believe in",
+    valuesText: "These principles shape every shot, every offer and every collaboration.",
+    values: [
+      { icon: "shield", title: "Legal compliance", text: "Permits, insurance and GDPR are part of the deal — not an add-on, but our standard." },
+      { icon: "clock", title: "Reliable speed", text: "Fully edited in under 48 hours. A promise we keep, project after project." },
+      { icon: "camera", title: "Uncompromising quality", text: "Professional gear, clean edits, high-end post-production — every property at its best." },
+      { icon: "heartHandshake", title: "Fair opportunities", text: "Real responsibility, fair pay and prospects for young people — from day one." },
+      { icon: "mapPin", title: "Regional roots", text: "From Gütersloh to the world: work, knowledge and value stay in the region." },
+      { icon: "sprout", title: "Entrepreneurial spirit", text: "Going our own way instead of ticking boxes. Courage, curiosity and the drive to do it better." },
+    ],
+    ctaTitle: "Meet the team",
+    ctaText: "Five minds, one goal. Talk to us about your project — or become part of our network.",
+    ctaPrimary: { label: "Get in touch", href: "/kontakt" },
+    ctaSecondary: { label: "Read the FAQ", href: "/faq" },
+  },
+
+  faq: {
+    eyebrow: "FAQ",
+    title: "Frequently asked questions",
+    text: "Everything you need to know about Aero One — from turnaround to the pilot network.",
+    items: [
+      {
+        q: "How quickly will I receive my footage?",
+        a: "Usually within 48 hours of the flight — fully edited and available centrally via a digital platform.",
+      },
+      {
+        q: "What does it cost?",
+        a: "For businesses we offer fixed packages: Basic (€449), Retainer (€339/month) and Premium (€559). Private customers book professional footage directly on immohero.org, where packages start from €79. Custom requests are always welcome.",
+      },
+      {
+        q: "Is everything legally covered?",
+        a: "Yes. We handle flight permits, drone insurance and any required consent forms (e.g. with the German Federal Aviation Office) and work in line with GDPR. You don't have to worry about a thing.",
+      },
+      {
+        q: "Who is your footage for?",
+        a: "For estate agents, construction firms and architecture practices — and, via immohero.org, for private sellers who want to present their property at its best.",
+      },
+      {
+        q: "Which regions do you cover?",
+        a: "Our roots are in East Westphalia-Lippe and NRW. Through our growing network of pilots and creatives, we aim to make professional footage available across Europe.",
+      },
+      {
+        q: "Do I get the usage rights to the footage?",
+        a: "Yes, the usage rights for the agreed purpose are included in our packages.",
+      },
+      {
+        q: "How do I join your pilot network?",
+        a: "You fly, film or shoot? Apply via our partner ImmoHero — onboarding runs directly through the platform.",
+      },
+      {
+        q: "Are you really a student company?",
+        a: "Yes. Aero One is a JUNIOR student company at Evangelisch Stiftisches Gymnasium in Gütersloh — and was named Germany's best student company in 2026.",
+      },
+    ],
+    ctaText: "Still have questions?",
+    ctaLabel: "Write to us",
+    ctaHref: "/kontakt",
   },
 };

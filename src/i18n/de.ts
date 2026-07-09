@@ -27,6 +27,16 @@ export const de: Dict = {
       ogDescription:
         "Bundessieger des IW-JUNIOR-Wettbewerbs 2026, Deutschlands Vertreter beim Gen-E-Europa-Finale in Riga: der Medienspiegel und alle offiziellen Pressemitteilungen.",
     },
+    about: {
+      title: "Über uns",
+      description:
+        "Aero One – vom Wahlpflichtfach zur besten Schülerfirma Deutschlands 2026. Unsere Geschichte, unsere Mission und unsere Werte.",
+    },
+    faq: {
+      title: "Häufige Fragen",
+      description:
+        "Antworten rund um Aero One: Lieferzeit, Preise, Rechtssicherheit, Regionen und das europaweite Pilot:innen-Netzwerk.",
+    },
   },
 
   announcement: {
@@ -41,7 +51,7 @@ export const de: Dict = {
     links: [
       { label: "Home", href: "/" },
       { label: "Leistungen", href: "/#leistungen" },
-      { label: "Galerie", href: "/#galerie" },
+      { label: "Über uns", href: "/ueber-uns" },
       { label: "Preise", href: "/#preise" },
       { label: "Presse", href: "/presse" },
       { label: "Kontakt", href: "/kontakt" },
@@ -360,12 +370,14 @@ export const de: Dict = {
     colInfo: "Informationen",
     pages: [
       { label: "Home", href: "/" },
+      { label: "Über uns", href: "/ueber-uns" },
       { label: "Leistungen", href: "/#leistungen" },
       { label: "Preise", href: "/#preise" },
       { label: "Presse", href: "/presse" },
       { label: "Kontakt", href: "/kontakt" },
     ],
     legal: [
+      { label: "FAQ", href: "/faq" },
       { label: "Impressum", href: "/impressum" },
       { label: "Datenschutz", href: "/datenschutz" },
     ],
@@ -422,4 +434,112 @@ export const de: Dict = {
   },
 
   legal: {},
+
+  about: {
+    eyebrow: "Über uns",
+    titlePre: "Vom Klassenzimmer zur",
+    titleHighlight: "besten Schülerfirma Deutschlands.",
+    lead: "Aero One ist eine JUNIOR-Schülerfirma am Evangelisch Stiftischen Gymnasium Gütersloh. Fünf Schüler:innen, eine Idee, ein professioneller Anspruch – und binnen eines Jahres der Titel „Beste Schülerfirma Deutschlands 2026“. Hier erfährst du, wer wir sind, woran wir glauben und wo wir hinwollen.",
+    stats: [
+      { value: "< 48 h", label: "Lieferzeit" },
+      { value: "5", label: "realisierte Projekte" },
+      { value: "13", label: "Medienberichte" },
+      { value: "2026", label: "Bundessieger IW JUNIOR" },
+    ],
+    missionEyebrow: "Mission",
+    missionTitle: "Professionelle Immobilienaufnahmen – schnell, rechtssicher und für alle zugänglich.",
+    missionText: "Gute Fotos verkaufen Immobilien. Trotzdem scheitern viele an Wartezeiten, Qualität und Drohnenrecht. Wir liefern professionelle Luftbilder und Videos in unter 48 Stunden – rechtssicher abgewickelt und volldigital buchbar. Unser Ziel: ein europaweites Netzwerk, das diese Qualität überall verfügbar macht und jungen Menschen echte Perspektiven eröffnet.",
+    storyEyebrow: "Unser Weg",
+    storyTitle: "Wie aus einer Kursidee ein Bundessieger wurde",
+    milestones: [
+      {
+        date: "Herbst 2025",
+        title: "Die Idee",
+        text: "Im Wahlpflichtfach „Wirtschaft-Medien-Kultur“ (WMK) kommt Linus mit einer Idee auf Jonathan zu: „etwas mit Drohnen“. Aus einer durchschnittlichen Branchen-Antwortzeit von drei Wochen wird das Markenversprechen der 48-Stunden-Lieferung.",
+      },
+      {
+        date: "Dezember 2025",
+        title: "„Höhle der Stifter“",
+        text: "Das Team pitcht seine Idee vor externen Unternehmer:innen und Berater:innen – dem schuleigenen Format nach Vorbild der „Höhle der Löwen“. Aus dem Konzept wird ein echtes Unternehmen.",
+      },
+      {
+        date: "Frühjahr 2026",
+        title: "Erste Kund:innen",
+        text: "Bereits fünf Projekte werden realisiert – unter anderem für das Gütersloher Immobilienbüro Kaup und die Wirtschaftsförderung Concept GT. Nach der ersten Akquise kommt Freya direkt mit zwei Kund:innen zurück.",
+      },
+      {
+        date: "21. Mai 2026",
+        title: "Landessieger NRW",
+        text: "Aero One gewinnt den IW-JUNIOR-Landeswettbewerb Nordrhein-Westfalen in Köln – und löst das Ticket zum Bundesfinale.",
+      },
+      {
+        date: "16. Juni 2026",
+        title: "Beste Schülerfirma Deutschlands",
+        text: "Beim Bundesfinale in Köln setzt sich das Team gegen 13 weitere Landessieger durch und wird Bundessieger 2026. Geschäftsführer Jonathan Kreutzheide erhält zusätzlich den Leadership Award.",
+      },
+      {
+        date: "7.–10. Juli 2026",
+        title: "Europa-Finale in Riga",
+        text: "Nach einem Coaching bei Bloomberg in Frankfurt vertritt Aero One Deutschland beim Gen-E, dem größten Entrepreneurship-Festival Europas, in Riga.",
+      },
+    ],
+    valuesEyebrow: "Unsere Werte",
+    valuesTitle: "Woran wir glauben",
+    valuesText: "Diese Grundsätze prägen jede Aufnahme, jedes Angebot und jede Zusammenarbeit.",
+    values: [
+      { icon: "shield", title: "Rechtssicherheit", text: "Genehmigungen, Versicherung und DSGVO gehören für uns dazu – nicht als Extra, sondern als Standard." },
+      { icon: "clock", title: "Verlässliches Tempo", text: "Fertig bearbeitet in unter 48 Stunden. Ein Versprechen, das wir Projekt für Projekt einlösen." },
+      { icon: "camera", title: "Kompromisslose Qualität", text: "Professionelle Technik, sauberer Schnitt, hochwertige Bearbeitung – jede Immobilie im besten Licht." },
+      { icon: "heartHandshake", title: "Faire Chancen", text: "Echte Verantwortung, faire Bezahlung und Perspektiven für junge Menschen – von Anfang an." },
+      { icon: "mapPin", title: "Regionale Wurzeln", text: "Aus Gütersloh in die Welt: Aufträge, Wissen und Wertschöpfung bleiben in der Region." },
+      { icon: "sprout", title: "Unternehmergeist", text: "Eigene Wege gehen statt Vorgaben abarbeiten. Mut, Neugier und der Wille, es besser zu machen." },
+    ],
+    ctaTitle: "Lernen Sie das Team kennen",
+    ctaText: "Fünf Köpfe, ein Ziel. Sprechen Sie mit uns über Ihr Projekt – oder werden Sie Teil unseres Netzwerks.",
+    ctaPrimary: { label: "Kontakt aufnehmen", href: "/kontakt" },
+    ctaSecondary: { label: "Häufige Fragen", href: "/faq" },
+  },
+
+  faq: {
+    eyebrow: "FAQ",
+    title: "Häufige Fragen",
+    text: "Alles, was du über Aero One wissen musst – von der Lieferzeit bis zum Pilot:innen-Netzwerk.",
+    items: [
+      {
+        q: "Wie schnell erhalte ich meine Aufnahmen?",
+        a: "In der Regel innerhalb von 48 Stunden nach dem Flug – fertig bearbeitet und zentral über eine digitale Plattform abrufbar.",
+      },
+      {
+        q: "Was kostet das?",
+        a: "Für Unternehmen bieten wir feste Pakete: Basic (449 €), Retainer (339 €/Monat) und Premium (559 €). Privatkund:innen buchen professionelle Aufnahmen direkt auf immohero.org – dort geht es ab 79 € los. Individuelle Anfragen sind jederzeit möglich.",
+      },
+      {
+        q: "Ist alles rechtlich abgesichert?",
+        a: "Ja. Wir kümmern uns um Fluggenehmigungen, die Drohnenversicherung und erforderliche Einverständniserklärungen (etwa beim Luftfahrt-Bundesamt) und arbeiten DSGVO-konform. Sie müssen sich um nichts kümmern.",
+      },
+      {
+        q: "Für wen sind eure Aufnahmen gedacht?",
+        a: "Für Immobilienmakler:innen, Bauunternehmen und Architekturbüros – und über immohero.org auch für Privatverkäufer:innen, die ihre Immobilie hochwertig präsentieren möchten.",
+      },
+      {
+        q: "In welchen Regionen seid ihr aktiv?",
+        a: "Unser Ursprung liegt in Ostwestfalen-Lippe und NRW. Über unser wachsendes Netzwerk aus Pilot:innen und Kreativen wollen wir professionelle Aufnahmen europaweit verfügbar machen.",
+      },
+      {
+        q: "Erhalte ich die Nutzungsrechte an den Aufnahmen?",
+        a: "Ja, die Nutzungsrechte für die vereinbarte Verwendung sind in unseren Paketen enthalten.",
+      },
+      {
+        q: "Wie werde ich Teil eures Pilot:innen-Netzwerks?",
+        a: "Du fliegst, filmst oder fotografierst? Dann bewirb dich über unseren Partner ImmoHero – der Einstieg läuft direkt über die Plattform.",
+      },
+      {
+        q: "Seid ihr wirklich eine Schülerfirma?",
+        a: "Ja. Aero One ist eine JUNIOR-Schülerfirma am Evangelisch Stiftischen Gymnasium Gütersloh – und wurde 2026 als beste Schülerfirma Deutschlands ausgezeichnet.",
+      },
+    ],
+    ctaText: "Noch Fragen offen?",
+    ctaLabel: "Schreib uns",
+    ctaHref: "/kontakt",
+  },
 };

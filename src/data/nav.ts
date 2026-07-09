@@ -8,8 +8,8 @@ export const BOOKING_URL = "https://immohero.org/buchen";
 /** Plattform-Startseite (Privatkund:innen, Pakete ab 79 €). */
 export const IMMOHERO_URL = "https://immohero.org";
 
-/** TODO: finaler Onboarding-Link (Netzwerk-Beitritt) folgt vom ImmoHero-Team. */
-export const ONBOARDING_URL = "https://immohero.org";
+/** Netzwerk-Beitritt für Pilot:innen/Videograf:innen/Fotograf:innen. */
+export const ONBOARDING_URL = "https://immohero.org/piloten";
 
 export const CONTACT_EMAIL = "aeroonemail@gmail.com";
 

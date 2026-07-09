@@ -48,6 +48,8 @@ export type Dict = {
     ogDescription: string;
     kontakt: { title: string; description: string };
     presse: { title: string; description: string; ogTitle: string; ogDescription: string };
+    about: { title: string; description: string };
+    faq: { title: string; description: string };
   };
   announcement: { text: string; short: string; href: string; switchLabel: string; switchHref: string };
   nav: { links: NavLink[]; booking: string; menuOpen: string; menuClose: string; logoAria: string };
@@ -212,5 +214,39 @@ export type Dict = {
   legal: {
     /** Hinweisbox auf EN-Rechtsseiten (nur EN gesetzt) */
     germanBindingNote?: string;
+  };
+
+  /** Über-uns-Seite (/ueber-uns): Story, Mission, Werte, Meilensteine. */
+  about: {
+    eyebrow: string;
+    titlePre: string;
+    titleHighlight: string;
+    lead: string;
+    stats: { value: string; label: string }[];
+    missionEyebrow: string;
+    missionTitle: string;
+    missionText: string;
+    storyEyebrow: string;
+    storyTitle: string;
+    milestones: { date: string; title: string; text: string }[];
+    valuesEyebrow: string;
+    valuesTitle: string;
+    valuesText: string;
+    values: FeatureCard[];
+    ctaTitle: string;
+    ctaText: string;
+    ctaPrimary: { label: string; href: string };
+    ctaSecondary: { label: string; href: string };
+  };
+
+  /** FAQ-Seite (/faq). */
+  faq: {
+    eyebrow: string;
+    title: string;
+    text: string;
+    items: { q: string; a: string }[];
+    ctaText: string;
+    ctaLabel: string;
+    ctaHref: string;
   };
 };
