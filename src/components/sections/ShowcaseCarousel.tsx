@@ -1,16 +1,37 @@
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { GalleryLightbox, type GalleryItem } from "@/components/ui/Lightbox";
-import { galleryPhotos } from "@/data/assets";
+import { galleryPhotos, video } from "@/data/assets";
 import type { Dict } from "@/i18n";
 
-const [g0, g1, g2] = galleryPhotos;
-
-const items: GalleryItem[] = [
-  { src: g0.src, alt: g0.alt, className: "lg:col-span-2 lg:row-span-2" },
-  { src: g1.src, alt: g1.alt },
-  { src: g2.src, alt: g2.alt },
+/** Bento-Spans je Foto (Reihenfolge = galleryPhotos). */
+const spans = [
+  "lg:col-span-2 lg:row-span-2", // großes Auftaktbild
+  "",
+  "",
+  "",
+  "lg:col-span-2",
+  "lg:col-span-2",
+  "",
 ];
+
+const photoItems: GalleryItem[] = galleryPhotos.map((p, i) => ({
+  src: p.src,
+  alt: p.alt,
+  className: spans[i] ?? "",
+}));
+
+const videoItem: GalleryItem = {
+  type: "video",
+  src: video.milse.poster,
+  videoSrc: video.milse.src,
+  poster: video.milse.poster,
+  alt: video.milse.title,
+  className: "lg:col-span-2 lg:row-span-2",
+};
+
+// Video prominent an zweiter Stelle (neben dem großen Auftaktbild).
+const items: GalleryItem[] = [photoItems[0], videoItem, ...photoItems.slice(1)];
 
 export function ShowcaseCarousel({ t }: { t: Dict["showcase"] }) {
   return (

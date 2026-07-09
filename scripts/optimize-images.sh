@@ -26,6 +26,10 @@ jpg "$SRC/Hermann-Vogelsang-Straße 3-1.jpg"   2400 72 "$OUT/photos/immobilie-hv
 jpg "$SRC/Hermann-Vogelsang-Straße 3-2.jpg"   2400 72 "$OUT/photos/immobilie-hv-2.jpg"
 jpg "$SRC/Neunkirchenerstraße 18-1.jpg"       2400 72 "$OUT/photos/immobilie-nk-1.jpg"
 jpg "$SRC/Neunkirchenerstraße 18-2.jpg"       2400 72 "$OUT/photos/immobilie-nk-2.jpg"
+jpg "$SRC/Milse/DJI_0957-HDR.jpg"             2400 72 "$OUT/photos/milse-1.jpg"
+jpg "$SRC/Milse/DJI_0018-HDR.jpg"             2400 72 "$OUT/photos/milse-2.jpg"
+jpg "$SRC/Milse/DJI_0048.jpg"                 2400 72 "$OUT/photos/milse-3.jpg"
+jpg "$SRC/Milse/DJI_0982-HDR.jpg"             2400 72 "$OUT/photos/milse-4.jpg"
 
 echo "→ Team-Portraits (max 900px, q80)"
 jpg "$SRC/Personal Fotos/Portrait Jonathan.png"   900 80 "$OUT/team/jonathan.jpg"

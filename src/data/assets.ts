@@ -18,6 +18,12 @@ export const video = {
     poster: "/media/video/referenz-conceptgt-poster.jpg",
     title: "Referenzvideo · ConceptGT",
   },
+  /** Beispiel-Referenzvideo (Landhaus im Wald), vom Kunden freigegeben. */
+  milse: {
+    src: "/media/video/milse-haus.mp4",
+    poster: "/media/video/milse-haus-poster.jpg",
+    title: "Referenzvideo · Landhaus im Wald",
+  },
 };
 
 export const photos = {
@@ -25,12 +31,20 @@ export const photos = {
   immobilieHv2: { src: "/media/photos/immobilie-hv-2.jpg", width: 2400, height: 1800, alt: "Senkrechte Drohnenaufnahme derselben Immobilie aus der Luft" },
   immobilieNk1: { src: "/media/photos/immobilie-nk-1.jpg", width: 2400, height: 1797, alt: "Immobilie aus der Luft" },
   immobilieNk2: { src: "/media/photos/immobilie-nk-2.jpg", width: 2400, height: 1797, alt: "Immobilie aus der Bodenperspektive" },
+  milse1: { src: "/media/photos/milse-1.jpg", width: 2400, height: 1797, alt: "Landhaus im Wald – Drohnen-Luftbild" },
+  milse2: { src: "/media/photos/milse-2.jpg", width: 2400, height: 1797, alt: "Solardach aus der Vogelperspektive" },
+  milse3: { src: "/media/photos/milse-3.jpg", width: 2400, height: 1800, alt: "Grundstück und Garten von oben" },
+  milse4: { src: "/media/photos/milse-4.jpg", width: 2400, height: 1797, alt: "Natursteinhaus – Frontansicht" },
 } satisfies Record<string, Img>;
 
-/** Galerie-Reihenfolge (Bento) – nur freigegebene Immobilien-Aufnahmen. */
+/** Galerie-Reihenfolge (Bento) – freigegebene Beispielaufnahmen. */
 export const galleryPhotos: Img[] = [
+  photos.milse1,
+  photos.milse2,
   photos.immobilieNk1,
+  photos.milse4,
   photos.immobilieHv2,
+  photos.milse3,
   photos.immobilieNk2,
 ];
 

@@ -25,5 +25,12 @@ ffmpeg -y -loglevel error -i "$REF" \
 ffmpeg -y -loglevel error -ss 5 -i "$REF" -frames:v 1 -vf "scale=1600:-2" -q:v 3 "$OUT/referenz-conceptgt-poster.jpg"
 echo "  ✓ referenz-conceptgt.mp4 + poster"
 
+echo "→ Beispielvideo Landhaus im Wald (1920px, CRF26, mit Audio)"
+ffmpeg -y -loglevel error -i "$SRC/Milse/Milse Haus.mov" \
+  -vf "scale='min(1920,iw)':-2" -c:v libx264 -preset medium -crf 26 \
+  -c:a aac -b:a 128k -pix_fmt yuv420p -movflags +faststart "$OUT/milse-haus.mp4"
+ffmpeg -y -loglevel error -ss 3 -i "$SRC/Milse/Milse Haus.mov" -frames:v 1 -vf "scale=1600:-2" -q:v 3 "$OUT/milse-haus-poster.jpg"
+echo "  ✓ milse-haus.mp4 + poster"
+
 echo "FERTIG."
 ls -lh "$OUT"
