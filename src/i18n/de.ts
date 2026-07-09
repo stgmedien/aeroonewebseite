@@ -542,4 +542,86 @@ export const de: Dict = {
     ctaLabel: "Schreib uns",
     ctaHref: "/kontakt",
   },
+
+  expose: {
+    eyebrow: "Der Unterschied",
+    titlePre: "Dasselbe Exposé –",
+    titleHighlight: "zwei Welten.",
+    text: "Schalten Sie um und sehen Sie, was professionelle Luftaufnahmen aus einem Inserat machen.",
+    toggleOff: "Ohne Aero One",
+    toggleOn: "Mit Aero One",
+    listingTitle: "Charmantes Landhaus mit großem Grundstück",
+    listingLocation: "33330 Gütersloh · 6 Zimmer · 220 m²",
+    listingPrice: "649.000 €",
+    statViews: "Exposé-Aufrufe",
+    statInquiries: "Anfragen",
+    badgePhotos: "10 HDR-Luftbilder",
+    badgeVideo: "4K-Video",
+    badge360: "360°-Rundgang",
+    note: "Illustratives Beispiel",
+    ctaLabel: "Jetzt Buchen!",
+  },
+
+  packageFinder: {
+    eyebrow: "Paket-Finder",
+    title: "In 30 Sekunden zum passenden Paket",
+    text: "Drei Fragen – eine Empfehlung.",
+    q1: {
+      question: "Was möchten Sie in Szene setzen?",
+      options: [
+        { label: "Wohnimmobilie", value: "wohnen" },
+        { label: "Gewerbe & Bau", value: "gewerbe" },
+        { label: "Event & Projekt", value: "projekt" },
+      ],
+    },
+    q2: {
+      question: "Welche Medien brauchen Sie?",
+      options: [
+        { label: "Luftbilder", value: "foto" },
+        { label: "Luftbilder + 4K-Video", value: "video" },
+      ],
+    },
+    q3: {
+      question: "Einmalig oder regelmäßig?",
+      options: [
+        { label: "Einmalig", value: "einmalig" },
+        { label: "Regelmäßig", value: "regelmaessig" },
+      ],
+    },
+    resultTitle: "Unsere Empfehlung für Sie",
+    resultText: "Basierend auf Ihren Antworten passt dieses Paket am besten:",
+    recommendedBadge: "Empfohlen",
+    restart: "Neu starten",
+  },
+
+  roi: {
+    eyebrow: "Rechnet sich",
+    title: "Was kostet Sie ein schlechtes Exposé?",
+    text: "Zwei Regler – eine klare Antwort.",
+    valueLabel: "Objektwert",
+    salesLabel: "Verkäufe pro Jahr",
+    resultPre: "Aero One Basic kostet nur",
+    resultPost: "einer einzigen Maklerprovision.",
+    note: "Rechenbeispiel: typische Käuferprovision 3,57 % inkl. MwSt.",
+    ctaLabel: "Jetzt Buchen!",
+  },
+
+  statsBand: {
+    items: [
+      { value: 2, suffix: "", label: "Wettbewerbssiege 2026" },
+      { value: 13, suffix: "", label: "Medienberichte" },
+      { value: 48, suffix: "h", label: "Lieferzeit" },
+      { value: 5, suffix: "", label: "Teammitglieder" },
+    ],
+  },
+
+  pressMarquee: {
+    label: "Die Presse über uns",
+  },
+
+  map: {
+    hq: "Gütersloh · Homebase",
+    live: "Riga · Gen-E-Finale",
+    vision: "Vision: europaweites Netzwerk",
+  },
 };

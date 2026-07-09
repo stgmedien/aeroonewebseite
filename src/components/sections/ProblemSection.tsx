@@ -7,7 +7,7 @@ import type { Dict } from "@/i18n";
 /** Kapitel 01 — die drei Hürden der Immobilienvermarktung (Gen-E-Storyline). */
 export function ProblemSection({ t }: { t: Dict["problem"] }) {
   return (
-    <section className="section">
+    <section id="problem" className="section">
       <div className="container-x">
         <div className="mx-auto max-w-3xl text-center">
           <Reveal>

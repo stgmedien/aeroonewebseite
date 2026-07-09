@@ -3,11 +3,12 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { badgeIcon } from "@/components/ui/badgeIcons";
+import { EuropeMap } from "@/components/ui/EuropeMap";
 import { onboardingUrl } from "@/lib/immohero";
 import type { Dict } from "@/i18n";
 
 /** Kapitel 04 — die Vision: ein europaweites Netzwerk (bewusst ohne Zahlen/Ask). */
-export function NetworkSection({ t }: { t: Dict["network"] }) {
+export function NetworkSection({ t, mapT }: { t: Dict["network"]; mapT: Dict["map"] }) {
   return (
     <section id="netzwerk" className="relative overflow-hidden scroll-mt-24">
       {/* Sunset-Glow (Muster aus CtaFreya) */}
@@ -34,6 +35,13 @@ export function NetworkSection({ t }: { t: Dict["network"] }) {
                 {r.label}
               </Badge>
             ))}
+          </div>
+        </Reveal>
+
+        {/* Animierte Europa-Karte: Gütersloh → Riga */}
+        <Reveal delay={0.25}>
+          <div className="mx-auto mt-10 max-w-3xl">
+            <EuropeMap t={mapT} />
           </div>
         </Reveal>
 

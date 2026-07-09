@@ -10,7 +10,7 @@ import Image from "next/image";
 
 export function StatSection({ t }: { t: Dict["stat"] }) {
   return (
-    <section className="section">
+    <section id="loesung" className="section">
       <div className="container-x grid items-center gap-12 lg:grid-cols-2">
         {/* Bild */}
         <Reveal>

@@ -1,11 +1,15 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, type Variants } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
+import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { ChevronDown, Play, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { video } from "@/data/assets";
 import { localePath, type Dict, type Locale } from "@/i18n";
+
+// Ember-Partikelfeld nur clientseitig laden (WebGL, kein SSR)
+const EmberField = dynamic(() => import("@/components/ui/EmberField"), { ssr: false });
 
 const EASE: [number, number, number, number] = [0.21, 0.5, 0.2, 1];
 const container: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } };
@@ -98,17 +102,65 @@ function HeroVideo({ playAria, playCta }: { playAria: string; playCta: string })
 }
 
 export function Hero({ t, locale }: { t: Dict["hero"]; locale: Locale }) {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Takeoff-Parallax: Scrollfortschritt über den Hero (Start oben → Hero verlässt Viewport)
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const cloudsY = useTransform(scrollYProgress, [0, 1], [0, 80]); // Wolken langsamer = ferner
+  const headlineY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const headlineOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.25]);
+  const videoY = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.04]);
+
+  // Ember-Feld nur auf Desktop mit feinem Zeiger und ohne Reduced-Motion mounten;
+  // bei Reduced-Motion zusätzlich die Parallax-Transforms neutralisieren.
+  const [embersOn, setEmbersOn] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  useEffect(() => {
+    const finePointer = window.matchMedia("(min-width: 768px) and (pointer: fine)");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => {
+      setReducedMotion(reduced.matches);
+      setEmbersOn(finePointer.matches && !reduced.matches);
+    };
+    update();
+    finePointer.addEventListener("change", update);
+    reduced.addEventListener("change", update);
+    return () => {
+      finePointer.removeEventListener("change", update);
+      reduced.removeEventListener("change", update);
+    };
+  }, []);
+
   return (
-    <section className="relative isolate overflow-hidden">
+    <section ref={sectionRef} className="relative isolate overflow-hidden">
       {/* Sonnenuntergang-Himmel */}
       <div className="absolute inset-0 -z-30 bg-hero" />
       <div className="absolute inset-0 -z-20 animate-sky bg-[radial-gradient(60%_50%_at_50%_18%,rgba(255,255,255,0.18),transparent_60%)]" />
-      <Clouds />
+      {/* Ember-Partikelfeld: zwischen Himmel (-z-20) und Wolken (-z-10) */}
+      {embersOn && (
+        <div className="pointer-events-none absolute inset-0 -z-[15]" aria-hidden>
+          <EmberField />
+        </div>
+      )}
+      <motion.div
+        style={{ y: reducedMotion ? 0 : cloudsY }}
+        className="pointer-events-none absolute inset-0 -z-10"
+        aria-hidden
+      >
+        <Clouds />
+      </motion.div>
       {/* unten in Ink überblenden */}
       <div className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-gradient-to-b from-transparent to-ink" />
 
       <div className="container-x relative pb-12 pt-32 text-center sm:pt-40">
-        <motion.div variants={container} initial="hidden" animate="show" className="flex flex-col items-center">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          style={{ y: reducedMotion ? 0 : headlineY, opacity: reducedMotion ? 1 : headlineOpacity }}
+          className="flex flex-col items-center"
+        >
           <motion.span
             variants={item}
             className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/15 px-4 py-1.5 text-sm font-medium text-white/90 backdrop-blur"
@@ -157,6 +209,7 @@ export function Hero({ t, locale }: { t: Dict["hero"]; locale: Locale }) {
           initial={{ opacity: 0, y: 60, scale: 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, delay: 0.6, ease: EASE }}
+          style={reducedMotion ? undefined : { y: videoY, scale: videoScale }}
           className="relative mx-auto mt-14 aspect-[16/9] w-full max-w-5xl overflow-hidden rounded-[2rem] ring-sunset shadow-[0_40px_120px_-30px_rgba(239,121,29,0.5)]"
         >
           <HeroVideo playAria={t.playAria} playCta={t.playCta} />

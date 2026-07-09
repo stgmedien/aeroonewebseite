@@ -6,7 +6,7 @@ import type { Dict } from "@/i18n";
 
 export function Team({ t }: { t: Dict["team"] }) {
   return (
-    <section className="section">
+    <section id="team" className="section">
       <div className="container-x">
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">

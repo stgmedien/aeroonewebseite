@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, Expand, Play } from "lucide-react";
 
 export type GalleryItem = {
@@ -13,6 +13,108 @@ export type GalleryItem = {
   poster?: string;
   className?: string;
 };
+
+/** Reagiert auf eine Media-Query (SSR-sicher, initial false). */
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const update = () => setMatches(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, [query]);
+  return matches;
+}
+
+/** Maximale Neigung in Grad — bewusst dezent gehalten. */
+const TILT_MAX = 3;
+
+/**
+ * Einzelne Bento-Kachel mit Spotlight-Hover und dezentem 3D-Tilt.
+ * Beide Effekte greifen nur bei (hover: hover) and (pointer: fine);
+ * der Tilt zusätzlich nur ohne prefers-reduced-motion.
+ * Touch-Verhalten bleibt unverändert.
+ */
+function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }) {
+  const finePointer = useMediaQuery("(hover: hover) and (pointer: fine)");
+  const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+  const tiltEnabled = finePointer && !reducedMotion;
+
+  // Tilt-Werte: MotionValues + Spring für weiches Nachfedern
+  const rx = useMotionValue(0);
+  const ry = useMotionValue(0);
+  const rotateX = useSpring(rx, { stiffness: 150, damping: 20 });
+  const rotateY = useSpring(ry, { stiffness: 150, damping: 20 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!finePointer) return;
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Spotlight-Position als CSS-Variablen (px relativ zur Kachel)
+    el.style.setProperty("--mx", `${x}px`);
+    el.style.setProperty("--my", `${y}px`);
+
+    if (!tiltEnabled) return;
+    // Cursorposition → Neigung (±TILT_MAX Grad)
+    ry.set((x / rect.width - 0.5) * TILT_MAX * 2);
+    rx.set((0.5 - y / rect.height) * TILT_MAX * 2);
+  };
+
+  const handleMouseLeave = () => {
+    rx.set(0);
+    ry.set(0);
+  };
+
+  const isVideo = item.type === "video";
+  const thumbSrc = isVideo ? item.poster ?? item.src : item.src;
+
+  return (
+    <motion.button
+      onClick={onOpen}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformPerspective: 800 }}
+      className={`group relative overflow-hidden rounded-2xl ring-sunset focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold pointer-fine:hover:ring-1 pointer-fine:hover:ring-gold/30 ${item.className ?? ""}`}
+      aria-label={`${item.alt} öffnen`}
+    >
+      <Image
+        src={thumbSrc}
+        alt={item.alt}
+        fill
+        sizes="(max-width:768px) 50vw, 25vw"
+        className="object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      {/* sanfter Verlauf für Kontrast unten */}
+      <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
+      {/* Spotlight-Overlay: folgt dem Cursor, nur bei feinem Pointer sichtbar */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 hidden opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-fine:block"
+        style={{
+          background:
+            "radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgba(246,187,30,0.14), transparent 70%)",
+        }}
+      />
+
+      {isVideo ? (
+        <span className="pointer-events-none absolute inset-0 grid place-items-center">
+          <span className="grid h-14 w-14 place-items-center rounded-full glass text-fg ring-1 ring-white/20 transition-transform duration-300 group-hover:scale-110">
+            <Play size={22} className="translate-x-[1px]" />
+          </span>
+        </span>
+      ) : (
+        <span className="pointer-events-none absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-black/45 text-white opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100">
+          <Expand size={16} />
+        </span>
+      )}
+    </motion.button>
+  );
+}
 
 export function GalleryLightbox({ items }: { items: GalleryItem[] }) {
   const [open, setOpen] = useState<number | null>(null);
@@ -39,40 +141,9 @@ export function GalleryLightbox({ items }: { items: GalleryItem[] }) {
   return (
     <>
       <div className="grid auto-rows-[180px] grid-cols-2 gap-4 [grid-auto-flow:dense] sm:auto-rows-[210px] lg:grid-cols-4">
-        {items.map((it, i) => {
-          const isVideo = it.type === "video";
-          const thumbSrc = isVideo ? it.poster ?? it.src : it.src;
-          return (
-            <button
-              key={i}
-              onClick={() => setOpen(i)}
-              className={`group relative overflow-hidden rounded-2xl ring-sunset focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${it.className ?? ""}`}
-              aria-label={`${it.alt} öffnen`}
-            >
-              <Image
-                src={thumbSrc}
-                alt={it.alt}
-                fill
-                sizes="(max-width:768px) 50vw, 25vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              {/* sanfter Verlauf für Kontrast unten */}
-              <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-
-              {isVideo ? (
-                <span className="pointer-events-none absolute inset-0 grid place-items-center">
-                  <span className="grid h-14 w-14 place-items-center rounded-full glass text-fg ring-1 ring-white/20 transition-transform duration-300 group-hover:scale-110">
-                    <Play size={22} className="translate-x-[1px]" />
-                  </span>
-                </span>
-              ) : (
-                <span className="pointer-events-none absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-black/45 text-white opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100">
-                  <Expand size={16} />
-                </span>
-              )}
-            </button>
-          );
-        })}
+        {items.map((it, i) => (
+          <GalleryTile key={i} item={it} onOpen={() => setOpen(i)} />
+        ))}
       </div>
 
       <AnimatePresence>

@@ -216,6 +216,70 @@ export type Dict = {
     germanBindingNote?: string;
   };
 
+  /** Exposé-Simulator: „Ohne / Mit Aero One“-Schalter (Kapitel 02). */
+  expose: {
+    eyebrow: string;
+    titlePre: string;
+    titleHighlight: string;
+    text: string;
+    toggleOff: string;
+    toggleOn: string;
+    listingTitle: string;
+    listingLocation: string;
+    listingPrice: string;
+    statViews: string;
+    statInquiries: string;
+    badgePhotos: string;
+    badgeVideo: string;
+    badge360: string;
+    note: string;
+    ctaLabel: string;
+  };
+
+  /** Paket-Finder: 3 Fragen → Paket-Empfehlung (vor Pricing). */
+  packageFinder: {
+    eyebrow: string;
+    title: string;
+    text: string;
+    q1: { question: string; options: { label: string; value: "wohnen" | "gewerbe" | "projekt" }[] };
+    q2: { question: string; options: { label: string; value: "foto" | "video" }[] };
+    q3: { question: string; options: { label: string; value: "einmalig" | "regelmaessig" }[] };
+    resultTitle: string;
+    resultText: string;
+    recommendedBadge: string;
+    restart: string;
+  };
+
+  /** Makler-ROI-Rechner (nach Pricing). */
+  roi: {
+    eyebrow: string;
+    title: string;
+    text: string;
+    valueLabel: string;
+    salesLabel: string;
+    resultPre: string;
+    resultPost: string;
+    note: string;
+    ctaLabel: string;
+  };
+
+  /** Zahlen-Band mit Count-up (nur belegbare Fakten). */
+  statsBand: {
+    items: { value: number; suffix: string; label: string }[];
+  };
+
+  /** Presse-Schlagzeilen-Marquee auf der Startseite. */
+  pressMarquee: {
+    label: string;
+  };
+
+  /** Europa-Karte in der Netzwerk-Sektion. */
+  map: {
+    hq: string;
+    live: string;
+    vision: string;
+  };
+
   /** Über-uns-Seite (/ueber-uns): Story, Mission, Werte, Meilensteine. */
   about: {
     eyebrow: string;

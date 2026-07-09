@@ -6,7 +6,7 @@ import type { Dict } from "@/i18n";
 /** Kapitel 06 — Impact: „mit dem Morgen im Blick". */
 export function ImpactSection({ t }: { t: Dict["impact"] }) {
   return (
-    <section className="section">
+    <section id="impact" className="section">
       <div className="container-x">
         <div className="max-w-3xl">
           <Reveal>

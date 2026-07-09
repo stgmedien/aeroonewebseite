@@ -46,11 +46,58 @@ function PanoSphere({ src, onReady }: { src: string; onReady: () => void }) {
 
 type Ctl = { lon: number; lat: number; fov: number };
 
+/**
+ * Gemeinsamer Motion-Zustand für Autopilot & FOV-Dolly.
+ * Bewusst Refs statt State — die Werte ändern sich pro Frame und
+ * dürfen keine Re-Renders auslösen.
+ */
+type MotionState = {
+  lastInteraction: number; // Zeitstempel der letzten User-Interaktion (Drag/Wheel/Szene)
+  autoSpeed: number; // aktuelle Autopilot-Geschwindigkeit (lerpt sanft Richtung AUTO_SPEED)
+  hasInteracted: boolean; // true ab der ersten User-Interaktion — verhindert/beendet den Dolly
+  dollyFov: number | null; // aktueller Dolly-FOV; null = Dolly inaktiv bzw. abgeschlossen
+};
+
+// Feinabstimmung Autopilot & Dolly
+const IDLE_DELAY_MS = 2000; // Wartezeit ohne Interaktion, bevor der Autopilot anläuft
+const AUTO_SPEED = 0.035; // Ziel-Drehgeschwindigkeit (Grad pro Frame, normiert auf 60 fps)
+const DOLLY_START_FOV = 90; // Start-FOV des Einflug-Dollys beim ersten Sichtbarwerden
+
 /** Manuelle Kamera-Steuerung aus der Kugelmitte (keine OrbitControls). */
-function Rig({ ctl }: { ctl: React.RefObject<Ctl> }) {
+function Rig({
+  ctl,
+  dragging,
+  motion,
+  reducedMotion,
+}: {
+  ctl: React.RefObject<Ctl>;
+  dragging: React.RefObject<boolean>;
+  motion: React.RefObject<MotionState>;
+  reducedMotion: boolean;
+}) {
   const { camera } = useThree();
-  useFrame(() => {
+  useFrame((_, delta) => {
     const c = ctl.current;
+    const m = motion.current;
+    // Delta begrenzen, damit Tab-Wechsel/Frame-Spikes keine Sprünge erzeugen
+    const dt = Math.min(delta, 1 / 30);
+
+    // --- (1) Autopilot: sanfte Auto-Rotation nach Idle-Zeit ----------
+    if (!reducedMotion) {
+      const idle = !dragging.current && Date.now() - m.lastInteraction > IDLE_DELAY_MS;
+      // Geschwindigkeit sanft Richtung Ziel dämpfen (kein Ruck beim Anlaufen);
+      // bei Interaktion wird autoSpeed zusätzlich sofort hart auf 0 gesetzt.
+      m.autoSpeed = THREE.MathUtils.damp(m.autoSpeed, idle ? AUTO_SPEED : 0, 1.2, dt);
+      if (m.autoSpeed > 1e-4) c.lon += m.autoSpeed * dt * 60;
+    }
+
+    // --- (2) FOV-Dolly: von 90 sanft auf das ctl-Ziel dämpfen --------
+    if (m.dollyFov != null) {
+      m.dollyFov = THREE.MathUtils.damp(m.dollyFov, c.fov, 2.2, dt);
+      // Ziel praktisch erreicht → Dolly beenden, ctl.fov übernimmt wieder allein
+      if (Math.abs(m.dollyFov - c.fov) < 0.05) m.dollyFov = null;
+    }
+
     const phi = THREE.MathUtils.degToRad(90 - c.lat);
     const theta = THREE.MathUtils.degToRad(c.lon);
     camera.lookAt(
@@ -59,8 +106,9 @@ function Rig({ ctl }: { ctl: React.RefObject<Ctl> }) {
       500 * Math.sin(phi) * Math.sin(theta),
     );
     const cam = camera as THREE.PerspectiveCamera;
-    if (cam.fov !== c.fov) {
-      cam.fov = c.fov;
+    const fov = m.dollyFov ?? c.fov;
+    if (cam.fov !== fov) {
+      cam.fov = fov;
       cam.updateProjectionMatrix();
     }
   });
@@ -97,18 +145,73 @@ export function PanoramaViewer({ scenes, labels }: { scenes: PanoScene[]; labels
   const last = useRef({ x: 0, y: 0 });
   const pointerId = useRef<number | null>(null);
 
+  // Gemeinsamer Motion-Zustand für Autopilot & FOV-Dolly (wird ans Rig durchgereicht)
+  const motion = useRef<MotionState>({
+    lastInteraction: Date.now(),
+    autoSpeed: 0,
+    hasInteracted: false,
+    dollyFov: null,
+  });
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const dollyArmed = useRef(false); // Dolly darf nur einmal (erstes Sichtbarwerden) starten
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [grabbing, setGrabbing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
 
+  // prefers-reduced-motion einmalig auslesen — State fürs Rig (Autopilot aus),
+  // Ref für den Observer-Callback (kein Dolly-Start bei reduzierter Motion).
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const reducedRef = useRef(false);
+
   // SSR-sicher: WebGL/Canvas erst nach Mount im Client rendern.
   useEffect(() => setMounted(true), []);
 
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    reducedRef.current = reduced;
+    setReducedMotion(reduced);
+  }, []);
+
+  // FOV-Dolly beim ERSTEN Sichtbarwerden des Viewers scharf schalten (einmalig).
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || dollyArmed.current) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting) || dollyArmed.current) return;
+        dollyArmed.current = true;
+        // Nur starten, solange der User noch nicht interagiert hat & Motion erlaubt ist
+        if (!reducedRef.current && !motion.current.hasInteracted) {
+          motion.current.dollyFov = DOLLY_START_FOV;
+        }
+        io.disconnect();
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   const active = scenes[activeIndex];
+
+  /* --- Interaktion registrieren (Autopilot stoppen, Dolly beenden) -- */
+  function registerInteraction() {
+    const m = motion.current;
+    m.lastInteraction = Date.now();
+    m.autoSpeed = 0; // sofort stoppen — läuft erst nach erneuter Idle-Zeit wieder an
+    m.hasInteracted = true;
+    if (m.dollyFov != null) {
+      // Dolly sprungfrei an den User übergeben: sichtbarer FOV wird neues Zoom-Ziel
+      ctl.current.fov = THREE.MathUtils.clamp(m.dollyFov, 35, 90);
+      m.dollyFov = null;
+    }
+  }
 
   /* --- Pointer-Steuerung (Ziehen zum Umsehen) --------------------- */
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    registerInteraction();
     dragging.current = true;
     pointerId.current = e.pointerId;
     last.current = { x: e.clientX, y: e.clientY };
@@ -130,6 +233,9 @@ export function PanoramaViewer({ scenes, labels }: { scenes: PanoScene[]; labels
 
   function endDrag(e: React.PointerEvent<HTMLDivElement>) {
     if (!dragging.current) return;
+    // Idle-Timer erst ab Drag-ENDE zählen — sonst liefe der Autopilot
+    // nach einem langen Drag sofort wieder an.
+    motion.current.lastInteraction = Date.now();
     dragging.current = false;
     setGrabbing(false);
     if (pointerId.current != null) {
@@ -140,6 +246,7 @@ export function PanoramaViewer({ scenes, labels }: { scenes: PanoScene[]; labels
 
   /* --- Mausrad (Zoom via FOV) ------------------------------------- */
   function onWheel(e: React.WheelEvent<HTMLDivElement>) {
+    registerInteraction();
     const c = ctl.current;
     c.fov += e.deltaY * 0.05;
     c.fov = THREE.MathUtils.clamp(c.fov, 35, 90);
@@ -152,10 +259,18 @@ export function PanoramaViewer({ scenes, labels }: { scenes: PanoScene[]; labels
     setActiveIndex(i);
     // Blickrichtung & Zoom zurücksetzen — neuer Standpunkt, frischer Blick.
     ctl.current = { ...DEFAULT_CTL };
+    // Additiv: Szenenwechsel zählt als Interaktion — Autopilot pausiert
+    // für die Idle-Zeit, ein evtl. laufender Dolly endet (Reset-FOV gilt).
+    const m = motion.current;
+    m.lastInteraction = Date.now();
+    m.autoSpeed = 0;
+    m.hasInteracted = true;
+    m.dollyFov = null;
   }
 
   return (
     <div
+      ref={containerRef}
       className="absolute inset-0 select-none overflow-hidden bg-ink-deep"
       style={{ touchAction: "none" }}
     >
@@ -180,7 +295,7 @@ export function PanoramaViewer({ scenes, labels }: { scenes: PanoScene[]; labels
               {/* key erzwingt sauberen Remount beim Quellwechsel */}
               <PanoSphere key={active.src} src={active.src} onReady={() => setLoading(false)} />
             </Suspense>
-            <Rig ctl={ctl} />
+            <Rig ctl={ctl} dragging={dragging} motion={motion} reducedMotion={reducedMotion} />
           </Canvas>
         </div>
       ) : (

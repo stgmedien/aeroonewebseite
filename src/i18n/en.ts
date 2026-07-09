@@ -546,4 +546,86 @@ export const en: Dict = {
     ctaLabel: "Write to us",
     ctaHref: "/kontakt",
   },
+
+  expose: {
+    eyebrow: "The difference",
+    titlePre: "The same listing –",
+    titleHighlight: "two different worlds.",
+    text: "Flip the switch and see what professional aerial footage does to a listing.",
+    toggleOff: "Without Aero One",
+    toggleOn: "With Aero One",
+    listingTitle: "Charming country house with large grounds",
+    listingLocation: "33330 Gütersloh · 6 rooms · 220 m²",
+    listingPrice: "€649,000",
+    statViews: "Listing views",
+    statInquiries: "Inquiries",
+    badgePhotos: "10 HDR aerial photos",
+    badgeVideo: "4K video",
+    badge360: "360° tour",
+    note: "Illustrative example",
+    ctaLabel: "Book now!",
+  },
+
+  packageFinder: {
+    eyebrow: "Package finder",
+    title: "Find your package in 30 seconds",
+    text: "Three questions – one recommendation.",
+    q1: {
+      question: "What would you like to showcase?",
+      options: [
+        { label: "Residential property", value: "wohnen" },
+        { label: "Commercial & construction", value: "gewerbe" },
+        { label: "Event & project", value: "projekt" },
+      ],
+    },
+    q2: {
+      question: "Which media do you need?",
+      options: [
+        { label: "Aerial photos", value: "foto" },
+        { label: "Aerial photos + 4K video", value: "video" },
+      ],
+    },
+    q3: {
+      question: "One-time or recurring?",
+      options: [
+        { label: "One-time", value: "einmalig" },
+        { label: "Recurring", value: "regelmaessig" },
+      ],
+    },
+    resultTitle: "Our recommendation for you",
+    resultText: "Based on your answers, this package fits best:",
+    recommendedBadge: "Recommended",
+    restart: "Start over",
+  },
+
+  roi: {
+    eyebrow: "It pays off",
+    title: "What does a poor listing cost you?",
+    text: "Two sliders – one clear answer.",
+    valueLabel: "Property value",
+    salesLabel: "Sales per year",
+    resultPre: "Aero One Basic costs just",
+    resultPost: "of a single broker commission.",
+    note: "Example calculation: typical buyer's commission of 3.57% incl. VAT.",
+    ctaLabel: "Book now!",
+  },
+
+  statsBand: {
+    items: [
+      { value: 2, suffix: "", label: "competition wins in 2026" },
+      { value: 13, suffix: "", label: "media features" },
+      { value: 48, suffix: "h", label: "turnaround" },
+      { value: 5, suffix: "", label: "team members" },
+    ],
+  },
+
+  pressMarquee: {
+    label: "The press on Aero One",
+  },
+
+  map: {
+    hq: "Gütersloh · Home base",
+    live: "Riga · Gen-E finals",
+    vision: "Vision: Europe-wide network",
+  },
 };

@@ -5,6 +5,7 @@ import "../globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
+import { IntroCurtain } from "@/components/layout/IntroCurtain";
 import { getDict, isLocale, locales } from "@/i18n";
 
 const inter = localFont({
@@ -96,6 +97,7 @@ export default async function RootLayout({
   return (
     <html lang={lang} className={`${inter.variable} ${jakarta.variable}`}>
       <body className="min-h-screen bg-ink text-fg antialiased">
+        <IntroCurtain />
         <AnnouncementBar t={d.announcement} />
         <Navbar t={d.nav} locale={lang} />
         <main>{children}</main>
